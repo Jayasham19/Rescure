@@ -1,0 +1,1153 @@
+openapi: 3.1.0
+info:
+  title: ReSecure Core REST API Contract
+  version: 1.0.0
+  description: >
+    Formal machine-readable OpenAPI 3.1 specification for ReSecure (MVP v1.0).
+    Provides cryptographic file protection, HMAC-SHA256 manifest authentication,
+    chunk-level corruption detection, Reed-Solomon GF(2^8) exact file recovery,
+    multi-format syntax validation, and heuristic structural repair.
+servers:
+  - url: http://localhost:8000
+    description: Local ReSecure FastAPI Core Engine
+
+paths:
+  # ---------------------------------------------------------------------------
+  # Protection Endpoint
+  # ---------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------
+  # One-Click Automatic Repair Endpoint
+  # ---------------------------------------------------------------------------
+  /api/one-click-repair:
+    post:
+      summary: Automatic one-click file analysis, corruption detection, and repair
+      operationId: oneClickRepair
+      tags: [One-Click Repair]
+      description: >
+        Primary entry point for automated file repair. Automatically detects format,
+        validates syntax/structure, uses Reed-Solomon parity if available, or applies
+        calibrated heuristic repairs for Text, CSV, JSON, PNG, and JPEG.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+          application/json:
+            schema:
+              type: object
+              properties:
+                source_path:
+                  type: string
+      responses:
+        '200':
+          description: Automatic repair complete.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneClickRepairResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  /api/download-repaired/{job_id}:
+    get:
+      summary: Download repaired or recovered file
+      operationId: downloadRepairedFile
+      tags: [One-Click Repair]
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: output
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File download stream
+        '404':
+          description: Repaired file not found
+
+  /api/protect:
+    post:
+      summary: Protect file with Reed-Solomon parity and authenticated manifest
+      operationId: protectFile
+      tags: [Protection]
+      description: >
+        Slices the input file into fixed chunks (default 64KB), computes SHA-256
+        hashes for each chunk and the root file, generates Reed-Solomon GF(2^8)
+        parity shards according to the redundancy ratio, and signs the canonical
+        JSON manifest with HMAC-SHA256.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProtectFileRequest'
+      responses:
+        '201':
+          description: File successfully protected; parity and manifest written to disk.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProtectFileResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '413':
+          $ref: '#/components/responses/413PayloadTooLarge'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  # ---------------------------------------------------------------------------
+  # Verification & Corruption Detection Endpoint
+  # ---------------------------------------------------------------------------
+  /api/verify:
+    post:
+      summary: Verify file integrity and audit chunk health against manifest
+      operationId: verifyFile
+      tags: [Audit & Verification]
+      description: >
+        Validates the HMAC-SHA256 signature of the manifest, streams the live file
+        in chunks, calculates live SHA-256 hashes, and evaluates the health state
+        of each chunk (HEALTHY, CORRUPTED, MISSING, OVERSIZED).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyFileRequest'
+      responses:
+        '200':
+          description: Verification audit complete; chunk health map returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyFileResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          description: Manifest HMAC verification failed; tampering detected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  # ---------------------------------------------------------------------------
+  # Exact Mathematical Recovery Endpoint
+  # ---------------------------------------------------------------------------
+  /api/recover:
+    post:
+      summary: Reconstruct corrupted file using Reed-Solomon parity
+      operationId: recoverFile
+      tags: [Recovery]
+      description: >
+        Solves lost or corrupted data chunks via Galois Field GF(2^8) erasure decoding
+        using available parity shards. Enforces the Non-Destructive Invariant
+        (output != source) and asserts that reconstructed SHA-256 matches the original
+        root SHA-256 bit-for-bit before committing the recovered file.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecoverFileRequest'
+      responses:
+        '200':
+          description: Exact bit-for-bit recovery verified and written to output path.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecoverFileResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '403':
+          description: Manifest HMAC verification failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Safe failure; damage exceeds available parity redundancy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafeFailureResponse'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  # ---------------------------------------------------------------------------
+  # Deep Format Validation Endpoint
+  # ---------------------------------------------------------------------------
+  /api/validate-format:
+    post:
+      summary: Deep structural and syntax validation for supported file formats
+      operationId: validateFormat
+      tags: [Format Validation]
+      description: >
+        Executes deep structural validation on Text/UTF-8, CSV, JSON, PNG, or JPEG
+        files, checking syntactic compliance, headers, magic bytes, checksums, and stream integrity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateFormatRequest'
+      responses:
+        '200':
+          description: Format validation complete; detailed structural findings returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateFormatResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  # ---------------------------------------------------------------------------
+  # Heuristic Structural Repair Endpoint
+  # ---------------------------------------------------------------------------
+  /api/repair-format:
+    post:
+      summary: Best-effort heuristic structural repair fallback
+      operationId: repairFormat
+      tags: [Format Repair]
+      description: >
+        Opt-in salvage mode for structurally broken Text, CSV, JSON, PNG, or JPEG files
+        when exact Reed-Solomon recovery is unavailable. Outputs a separate .repaired file
+        and a forensic JSON disclosure log documenting all heuristic mutations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepairFormatRequest'
+      responses:
+        '200':
+          description: Heuristic structural repair complete; output written with disclosure log.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepairFormatResponse'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  # ---------------------------------------------------------------------------
+  # Background Jobs Endpoint
+  # ---------------------------------------------------------------------------
+  /api/jobs/{job_id}:
+    get:
+      summary: Fetch asynchronous job status and progress
+      operationId: getJobStatus
+      tags: [Jobs]
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          description: UUIDv4 identifier of the background job
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Job status and telemetry retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusResponse'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  # ---------------------------------------------------------------------------
+  # Forensic Reports Endpoint
+  # ---------------------------------------------------------------------------
+  /api/reports/{job_id}:
+    get:
+      summary: Retrieve detailed forensic audit report for an operation
+      operationId: getForensicReport
+      tags: [Reports]
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          description: UUIDv4 identifier of the completed job
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Full forensic report returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForensicReportResponse'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalError'
+
+  # ---------------------------------------------------------------------------
+  # Service Health Endpoint
+  # ---------------------------------------------------------------------------
+  /api/health:
+    get:
+      summary: Service health and readiness check
+      operationId: getHealth
+      tags: [System]
+      responses:
+        '200':
+          description: Service is healthy and operational.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+        '503':
+          description: Service is degraded or database inaccessible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheckResponse'
+
+# -----------------------------------------------------------------------------
+# Component Definitions
+# -----------------------------------------------------------------------------
+components:
+  schemas:
+    # -------------------------------------------------------------------------
+    # Enums
+    # -------------------------------------------------------------------------
+    FileFormat:
+      type: string
+      enum: [TEXT, CSV, JSON, PNG, JPEG, PDF, BINARY, AUTO]
+      description: Supported format classification.
+
+    ChunkStatus:
+      type: string
+      enum: [HEALTHY, CORRUPTED, MISSING, OVERSIZED]
+      description: Cryptographic health state of an individual 64KB chunk.
+
+    OperationVerdict:
+      type: string
+      enum:
+        - PRISTINE
+        - RECOVERABLE
+        - VERIFIED_EXACT
+        - UNRECOVERABLE_EXACT
+        - STRUCTURALLY_SALVAGED
+        - INTEGRITY_VIOLATION
+      description: Final operational verdict of an integrity, recovery, or repair operation.
+
+    JobType:
+      type: string
+      enum: [PROTECT, VERIFY, RECOVER, VALIDATE, REPAIR]
+      description: Type of background operation.
+
+    JobStatus:
+      type: string
+      enum: [PENDING, PROCESSING, COMPLETED, FAILED, UNRECOVERABLE]
+      description: Execution lifecycle status of a background job.
+
+    CorruptionType:
+      type: string
+      enum: [BIT_FLIP, ZERO_FILL, HEADER_WIPE, TRUNCATION, INJECTION]
+      description: Identified category of data corruption.
+
+    # -------------------------------------------------------------------------
+    # Request Models
+    # -------------------------------------------------------------------------
+    ProtectFileRequest:
+      type: object
+      required:
+        - source_path
+      properties:
+        source_path:
+          type: string
+          description: Absolute path to the file to be protected.
+          example: "/data/financial_q3.csv"
+        redundancy_percentage:
+          type: integer
+          minimum: 5
+          maximum: 100
+          default: 20
+          description: Reed-Solomon redundancy ratio percentage.
+          example: 20
+        chunk_size_bytes:
+          type: integer
+          enum: [16384, 65536, 262144, 1048576]
+          default: 65536
+          description: Chunk size in bytes (default 64KB).
+          example: 65536
+        output_dir:
+          type: string
+          nullable: true
+          description: Directory to place .rsmanifest.json and .rsparity. Defaults to source file directory.
+          example: "/data/parity_vault"
+        secret_key:
+          type: string
+          nullable: true
+          description: Pre-shared key for HMAC-SHA256 manifest authentication.
+          example: "corp-security-key-2026"
+        key_id:
+          type: string
+          nullable: true
+          description: Identifier for the HMAC key.
+          example: "vault-key-01"
+
+    VerifyFileRequest:
+      type: object
+      required:
+        - source_path
+        - manifest_path
+      properties:
+        source_path:
+          type: string
+          description: Absolute path to the target file to be verified.
+          example: "/data/financial_q3.csv"
+        manifest_path:
+          type: string
+          description: Absolute path to the .rsmanifest.json file.
+          example: "/data/parity_vault/financial_q3.csv.rsmanifest.json"
+        secret_key:
+          type: string
+          nullable: true
+          description: Pre-shared key used to authenticate manifest HMAC signature.
+          example: "corp-security-key-2026"
+
+    RecoverFileRequest:
+      type: object
+      required:
+        - source_path
+        - manifest_path
+        - parity_path
+        - output_path
+      properties:
+        source_path:
+          type: string
+          description: Absolute path to the damaged source file.
+          example: "/data/financial_q3.csv"
+        manifest_path:
+          type: string
+          description: Absolute path to the authenticated manifest file.
+          example: "/data/parity_vault/financial_q3.csv.rsmanifest.json"
+        parity_path:
+          type: string
+          description: Absolute path to the .rsparity container.
+          example: "/data/parity_vault/financial_q3.csv.rsparity"
+        output_path:
+          type: string
+          description: Absolute path to write the restored file (must NOT equal source_path).
+          example: "/data/recovered/financial_q3.csv"
+        secret_key:
+          type: string
+          nullable: true
+          description: Pre-shared key for HMAC-SHA256 authentication.
+          example: "corp-security-key-2026"
+
+    ValidateFormatRequest:
+      type: object
+      required:
+        - source_path
+      properties:
+        source_path:
+          type: string
+          description: Absolute path to the file to validate.
+          example: "/data/evidence.png"
+        format:
+          $ref: '#/components/schemas/FileFormat'
+          default: AUTO
+          description: Target format parser. AUTO detects from extension/magic bytes.
+
+    RepairFormatRequest:
+      type: object
+      required:
+        - source_path
+        - output_path
+      properties:
+        source_path:
+          type: string
+          description: Absolute path to the damaged file.
+          example: "/data/events.json"
+        output_path:
+          type: string
+          description: Absolute path to write the repaired file (must NOT equal source_path).
+          example: "/data/repaired/events.repaired.json"
+        format:
+          $ref: '#/components/schemas/FileFormat'
+          default: AUTO
+          description: File format to apply heuristic repair for.
+
+    # -------------------------------------------------------------------------
+    # Response Models & Sub-Entities
+    # -------------------------------------------------------------------------
+    ChunkHashItem:
+      type: object
+      required:
+        - index
+        - offset
+        - size_bytes
+        - sha256
+      properties:
+        index:
+          type: integer
+          example: 0
+        offset:
+          type: integer
+          example: 0
+        size_bytes:
+          type: integer
+          example: 65536
+        sha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+          example: "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+
+    ChunkHealthItem:
+      type: object
+      required:
+        - index
+        - offset
+        - size_bytes
+        - expected_sha256
+        - live_sha256
+        - status
+      properties:
+        index:
+          type: integer
+          example: 2
+        offset:
+          type: integer
+          example: 131072
+        size_bytes:
+          type: integer
+          example: 65536
+        expected_sha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+          example: "a1b2c3d4..."
+        live_sha256:
+          type: string
+          nullable: true
+          pattern: '^[a-f0-9]{64}$'
+          example: "e5f6g7h8..."
+        status:
+          $ref: '#/components/schemas/ChunkStatus'
+          example: CORRUPTED
+
+    OneClickRepairResponse:
+      type: object
+      required:
+        - job_id
+        - filename
+        - file_size_bytes
+        - detected_format
+        - verdict
+        - is_exact
+        - original_sha256
+        - message
+        - duration_ms
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        filename:
+          type: string
+        file_size_bytes:
+          type: integer
+        detected_format:
+          type: string
+        verdict:
+          type: string
+          enum: [PRISTINE, EXACT_RECOVERED, REPAIRED, UNRECOVERABLE, UNSUPPORTED]
+        is_exact:
+          type: boolean
+        original_sha256:
+          type: string
+        output_sha256:
+          type: string
+          nullable: true
+        mutations_count:
+          type: integer
+        repair_log:
+          type: array
+          items:
+            type: object
+        findings:
+          type: array
+          items:
+            type: object
+        download_url:
+          type: string
+          nullable: true
+        message:
+          type: string
+        duration_ms:
+          type: number
+
+    ProtectFileResponse:
+      type: object
+      required:
+        - job_id
+        - file_id
+        - manifest_path
+        - parity_path
+        - root_sha256
+        - total_chunks_k
+        - parity_chunks_m
+        - redundancy_percentage
+        - hmac_signature
+        - duration_ms
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        file_id:
+          type: string
+          format: uuid
+        manifest_path:
+          type: string
+          example: "/data/financial_q3.csv.rsmanifest.json"
+        parity_path:
+          type: string
+          example: "/data/financial_q3.csv.rsparity"
+        root_sha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+          example: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        total_chunks_k:
+          type: integer
+          example: 10
+        parity_chunks_m:
+          type: integer
+          example: 2
+        redundancy_percentage:
+          type: integer
+          example: 20
+        hmac_signature:
+          type: string
+          example: "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e"
+        duration_ms:
+          type: integer
+          example: 45
+
+    VerifyFileResponse:
+      type: object
+      required:
+        - job_id
+        - source_path
+        - manifest_hmac_valid
+        - verdict
+        - health_percentage
+        - total_chunks_k
+        - healthy_chunks
+        - corrupted_chunks
+        - missing_chunks
+        - chunk_health_map
+        - duration_ms
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        source_path:
+          type: string
+        manifest_hmac_valid:
+          type: boolean
+          example: true
+        verdict:
+          $ref: '#/components/schemas/OperationVerdict'
+          example: RECOVERABLE
+        health_percentage:
+          type: number
+          format: float
+          example: 87.5
+        total_chunks_k:
+          type: integer
+          example: 16
+        healthy_chunks:
+          type: integer
+          example: 14
+        corrupted_chunks:
+          type: integer
+          example: 2
+        missing_chunks:
+          type: integer
+          example: 0
+        corrupted_indices:
+          type: array
+          items:
+            type: integer
+          example: [2, 7]
+        parity_chunks_available:
+          type: integer
+          example: 4
+        chunk_health_map:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChunkHealthItem'
+        duration_ms:
+          type: integer
+          example: 28
+
+    RecoverFileResponse:
+      type: object
+      required:
+        - job_id
+        - source_path
+        - output_path
+        - original_root_sha256
+        - recovered_root_sha256
+        - hash_verified_exact
+        - verdict
+        - parity_shards_consumed
+        - parity_shards_remaining
+        - duration_ms
+        - throughput_mb_s
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        source_path:
+          type: string
+        output_path:
+          type: string
+        original_root_sha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        recovered_root_sha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        hash_verified_exact:
+          type: boolean
+          example: true
+        verdict:
+          $ref: '#/components/schemas/OperationVerdict'
+          example: VERIFIED_EXACT
+        parity_shards_consumed:
+          type: integer
+          example: 2
+        parity_shards_remaining:
+          type: integer
+          example: 2
+        duration_ms:
+          type: integer
+          example: 62
+        throughput_mb_s:
+          type: number
+          format: float
+          example: 22.4
+
+    SafeFailureResponse:
+      type: object
+      required:
+        - error_code
+        - verdict
+        - message
+        - damaged_chunks_count
+        - parity_chunks_available
+        - deficit
+        - damaged_indices
+      properties:
+        error_code:
+          type: string
+          example: "ERR_EXCEEDS_REDUNDANCY"
+        verdict:
+          $ref: '#/components/schemas/OperationVerdict'
+          example: UNRECOVERABLE_EXACT
+        message:
+          type: string
+          example: "Damage (4 chunks) exceeds available parity shards (2 chunks). Deficit: 2 chunks."
+        damaged_chunks_count:
+          type: integer
+          example: 4
+        parity_chunks_available:
+          type: integer
+          example: 2
+        deficit:
+          type: integer
+          example: 2
+        damaged_indices:
+          type: array
+          items:
+            type: integer
+          example: [0, 1, 2, 3]
+        safe_action_taken:
+          type: string
+          example: "No files written to output destination. Temporary buffers purged."
+
+    FormatValidationFinding:
+      type: object
+      required:
+        - rule_name
+        - passed
+        - severity
+        - message
+      properties:
+        rule_name:
+          type: string
+          example: "PNG_CHUNK_CRC32"
+        passed:
+          type: boolean
+          example: false
+        severity:
+          type: string
+          enum: [INFO, WARNING, ERROR]
+          example: "ERROR"
+        message:
+          type: string
+          example: "Chunk [IHDR] CRC mismatch: expected 0x5D38A2B1, computed 0x1A2B3C4D"
+        byte_offset:
+          type: integer
+          nullable: true
+          example: 29
+        line_number:
+          type: integer
+          nullable: true
+
+    ValidateFormatResponse:
+      type: object
+      required:
+        - format
+        - is_valid
+        - verdict
+        - findings
+        - metrics
+      properties:
+        format:
+          $ref: '#/components/schemas/FileFormat'
+          example: PNG
+        is_valid:
+          type: boolean
+          example: false
+        verdict:
+          type: string
+          enum: [FORMAT_VALID, FORMAT_INVALID]
+          example: FORMAT_INVALID
+        findings:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormatValidationFinding'
+        metrics:
+          type: object
+          additionalProperties: true
+          example:
+            width: 1920
+            height: 1080
+            bit_depth: 8
+            chunks_parsed: 5
+
+    RepairLogEntry:
+      type: object
+      required:
+        - action
+        - description
+      properties:
+        action:
+          type: string
+          example: "pad_columns"
+        row:
+          type: integer
+          nullable: true
+          example: 42
+        byte_offset:
+          type: integer
+          nullable: true
+        description:
+          type: string
+          example: "Row 42: Padded 2 missing columns with empty values"
+        tokens_appended:
+          type: string
+          nullable: true
+
+    RepairFormatResponse:
+      type: object
+      required:
+        - source_path
+        - output_path
+        - log_path
+        - format
+        - verdict
+        - disclosure_warning
+        - mutations_count
+        - repair_log
+      properties:
+        source_path:
+          type: string
+        output_path:
+          type: string
+          example: "/data/repaired/sensor_readings.csv.repaired.csv"
+        log_path:
+          type: string
+          example: "/data/repaired/sensor_readings.csv.repaired.log.json"
+        format:
+          $ref: '#/components/schemas/FileFormat'
+        verdict:
+          $ref: '#/components/schemas/OperationVerdict'
+          example: STRUCTURALLY_SALVAGED
+        disclosure_warning:
+          type: string
+          example: "Heuristic repair executed. Content was mutated to achieve structural compliance; data loss or truncation has occurred."
+        mutations_count:
+          type: integer
+          example: 3
+        repair_log:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepairLogEntry'
+
+    JobStatusResponse:
+      type: object
+      required:
+        - job_id
+        - job_type
+        - status
+        - progress_pct
+        - created_at
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        job_type:
+          $ref: '#/components/schemas/JobType'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        progress_pct:
+          type: number
+          format: float
+          example: 100.0
+        source_path:
+          type: string
+        output_path:
+          type: string
+          nullable: true
+        verdict:
+          $ref: '#/components/schemas/OperationVerdict'
+          nullable: true
+        error_message:
+          type: string
+          nullable: true
+        duration_ms:
+          type: integer
+          nullable: true
+        throughput_mb_s:
+          type: number
+          format: float
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    ForensicReportResponse:
+      type: object
+      required:
+        - operation_id
+        - timestamp
+        - tool_version
+        - operation_type
+        - target_file
+        - cryptography
+        - chunk_diagnostics
+        - recovery_metrics
+      properties:
+        operation_id:
+          type: string
+          format: uuid
+        timestamp:
+          type: string
+          format: date-time
+        tool_version:
+          type: string
+          example: "ReSecure MVP v1.0.0"
+        operation_type:
+          $ref: '#/components/schemas/JobType'
+        target_file:
+          type: object
+          required:
+            - source_path
+            - original_size_bytes
+          properties:
+            source_path:
+              type: string
+            output_path:
+              type: string
+              nullable: true
+            original_size_bytes:
+              type: integer
+            recovered_size_bytes:
+              type: integer
+              nullable: true
+        cryptography:
+          type: object
+          required:
+            - manifest_hmac_valid
+            - original_root_sha256
+          properties:
+            manifest_hmac_valid:
+              type: boolean
+            original_root_sha256:
+              type: string
+            recovered_root_sha256:
+              type: string
+              nullable: true
+            hash_match_verified:
+              type: boolean
+              nullable: true
+        chunk_diagnostics:
+          type: object
+          required:
+            - total_chunks_k
+            - parity_chunks_m
+            - healthy_chunks
+            - corrupted_chunks
+            - missing_chunks
+            - health_percentage
+          properties:
+            total_chunks_k:
+              type: integer
+            parity_chunks_m:
+              type: integer
+            healthy_chunks:
+              type: integer
+            corrupted_chunks:
+              type: integer
+            missing_chunks:
+              type: integer
+            corrupted_indices:
+              type: array
+              items:
+                type: integer
+            health_percentage:
+              type: number
+              format: float
+        recovery_metrics:
+          type: object
+          required:
+            - verdict
+            - duration_ms
+          properties:
+            parity_shards_consumed:
+              type: integer
+              nullable: true
+            parity_shards_remaining:
+              type: integer
+              nullable: true
+            verdict:
+              $ref: '#/components/schemas/OperationVerdict'
+            duration_ms:
+              type: integer
+            throughput_mb_s:
+              type: number
+              format: float
+              nullable: true
+        format_validation:
+          type: object
+          nullable: true
+          properties:
+            format_detected:
+              type: string
+            is_structurally_valid:
+              type: boolean
+            anomalies_detected:
+              type: integer
+
+    HealthCheckResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+        - version
+        - database_connected
+        - memory_rss_mb
+      properties:
+        status:
+          type: string
+          enum: [OK, DEGRADED]
+          example: OK
+        timestamp:
+          type: string
+          format: date-time
+        version:
+          type: string
+          example: "1.0.0"
+        database_connected:
+          type: boolean
+          example: true
+        memory_rss_mb:
+          type: number
+          format: float
+          example: 42.5
+        disk_space_available_gb:
+          type: number
+          format: float
+          example: 120.4
+
+    ErrorResponse:
+      type: object
+      required:
+        - error_code
+        - message
+        - timestamp
+      properties:
+        error_code:
+          type: string
+          example: "ERR_PATH_TRAVERSAL"
+        message:
+          type: string
+          example: "Security Error: Illegal path traversal escape sequence detected."
+        details:
+          type: object
+          additionalProperties: true
+        timestamp:
+          type: string
+          format: date-time
+
+  # ---------------------------------------------------------------------------
+  # Reusable Response Envelopes
+  # ---------------------------------------------------------------------------
+  responses:
+    400BadRequest:
+      description: Invalid request parameters, unreadable file, or path traversal attempt.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    404NotFound:
+      description: Requested file, job, or report was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    413PayloadTooLarge:
+      description: Input file exceeds configured maximum size limit (2.0 GB).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    500InternalError:
+      description: Server error or cryptographic invariant violation during processing.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "task_id": "TASK-RS-006",
+  "epic": "resecure",
+  "agent": "QA Agent",
+  "branch": "feature/resecure-mvp",
+  "status": "READY_FOR_REVIEW",
+  "timestamp": "2026-10-22T18:40:00Z",
+  "changes": {
+    "files_created": [
+      "tests/test_resecure_acceptance_gates.py",
+      "resecure/tests/test_resecure_acceptance_gates.py",
+      "scripts/validation/Test-ReSecureE2E.ps1",
+      "docs/reports/qa/resecure-setup-and-troubleshooting.md",
+      "resecure/docs/reports/qa/resecure-setup-and-troubleshooting.md",
+      "docs/setup-and-troubleshooting.md",
+      "resecure/docs/setup-and-troubleshooting.md",
+      "docs/reports/qa/resecure-qa-acceptance.log",
+      "resecure/docs/reports/qa/resecure-qa-acceptance.log",
+      "docs/reports/qa/resecure-qa-report.md",
+      "resecure/docs/reports/qa/resecure-qa-report.md",
+      "docs/handoffs/resecure-qa.json",
+      "docs/handoffs/resecure-qa.md"
+    ],
+    "files_modified": [],
+    "files_deleted": []
+  },
+  "contracts_consumed": [
+    "contracts/resecure/api.yaml",
+    "contracts/resecure/types.ts",
+    "contracts/resecure/schema.sql"
+  ],
+  "contracts_produced": [],
+  "verification": {
+    "type_check_passed": true,
+    "linter_passed": true,
+    "unit_tests_run": 85,
+    "unit_tests_passed": 85,
+    "test_command": "powershell -ExecutionPolicy Bypass -File scripts/validation/Test-ReSecureE2E.ps1",
+    "test_log_path": "docs/reports/qa/resecure-qa-acceptance.log"
+  },
+  "known_limitations": [
+    "File size capped at 2.0 GB for MVP v1.0 memory-bounded verification matrix",
+    "Distributed network cluster parity deferred to v2.0"
+  ],
+  "downstream_actions": [
+    "Lead Orchestrator Agent to perform final review and merge of feature/resecure-mvp into main",
+    "DevOps Agent to tag ReSecure MVP v1.0.0 release"
+  ]
+}

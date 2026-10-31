@@ -1,0 +1,82 @@
+{
+  "authentication": {
+    "algorithm": "HMAC-SHA256",
+    "hmac_signature": "4ec669617ba5b3ea88250c8f713809099a0e5cc2630f856dd49d4ca14371f13e",
+    "key_id": "vault-key-prod-01"
+  },
+  "created_at": "2026-10-25T18:10:58.513248Z",
+  "erasure_coding": {
+    "algorithm": "Reed-Solomon-GF256",
+    "chunk_size_bytes": 65536,
+    "data_chunks_k": 9,
+    "parity_chunks_m": 2,
+    "parity_file_name": "AI for Scientific Research.pdf.rsparity",
+    "redundancy_percentage": 20
+  },
+  "integrity": {
+    "chunks": [
+      {
+        "index": 0,
+        "offset": 0,
+        "sha256": "27bf555d18ce24d441ac3f49543d494abbf6aeaf8ce1bb2d95f4a918e0054f85",
+        "size_bytes": 65536
+      },
+      {
+        "index": 1,
+        "offset": 65536,
+        "sha256": "0702b21bb6a5c31afe8805b8fa51aad3f29231f6cf4a743bc2414d60e59fbe1e",
+        "size_bytes": 65536
+      },
+      {
+        "index": 2,
+        "offset": 131072,
+        "sha256": "7a3b5cfbc991f9f71eac7b70f5177822a9d0dd2770afa366566aef531e31c236",
+        "size_bytes": 65536
+      },
+      {
+        "index": 3,
+        "offset": 196608,
+        "sha256": "c725a838c9ff4e453b9600828dd8e6650e76f39851c7295f8ef3c3f1852cb7fe",
+        "size_bytes": 65536
+      },
+      {
+        "index": 4,
+        "offset": 262144,
+        "sha256": "979c9a072410014e953d68e17bf6aae79cedf50bfd4cc1d9d3459ad03d17a862",
+        "size_bytes": 65536
+      },
+      {
+        "index": 5,
+        "offset": 327680,
+        "sha256": "96c245d88788e961afeea8389bedfb07444e6967fd07989d6640a25bc06745b0",
+        "size_bytes": 65536
+      },
+      {
+        "index": 6,
+        "offset": 393216,
+        "sha256": "8796b36abf27f1bbfde63649f339bc92c726a75e053a87390229b118afd6ae2f",
+        "size_bytes": 65536
+      },
+      {
+        "index": 7,
+        "offset": 458752,
+        "sha256": "d0d4d4af717e48fd62e211b3e66a2d251894d7f03db3513602e1d8c9b2325022",
+        "size_bytes": 65536
+      },
+      {
+        "index": 8,
+        "offset": 524288,
+        "sha256": "c1582b96e449d26d2ff4345aebb0596069394f4071585a26e643cb390a3900fe",
+        "size_bytes": 49748
+      }
+    ],
+    "root_sha256": "21e1c5eac59672eb7d6cfa41596c8ee0b1cb3b51aacefce72e4cebbdf53cd6fe"
+  },
+  "manifest_version": "1.0.0",
+  "metadata": {
+    "file_format": "PDF",
+    "file_size_bytes": 574036,
+    "mime_type": "application/pdf",
+    "original_filename": "AI for Scientific Research.pdf"
+  }
+}

@@ -1,0 +1,21 @@
+# CalmStacks ReSecure - Workspace Docker Ignore Rules
+.git
+.gitignore
+.github
+.pytest_cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+backend/venv/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+database/resecure.db
+database/resecure.db-wal
+database/resecure.db-shm
+data/
+*.log
+.DS_Store
+Thumbs.db

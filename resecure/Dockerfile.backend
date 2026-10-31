@@ -1,0 +1,77 @@
+# ==============================================================================
+# ReSecure Core Engine - Backend Container
+# Image: Python 3.13-slim Multi-Stage Build
+# Security: Unprivileged Non-Root User (resecure: UID 10001, GID 10001)
+# Healthcheck: /api/health
+# Volume: /data
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Stage 1: Dependency Builder
+# ------------------------------------------------------------------------------
+FROM python:3.13-slim AS builder
+
+WORKDIR /build
+
+# Install compilation prerequisites
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create virtual environment in /opt/venv
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Python dependencies
+COPY resecure/requirements.txt /build/requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r /build/requirements.txt
+
+# ------------------------------------------------------------------------------
+# Stage 2: Minimal Production Runtime
+# ------------------------------------------------------------------------------
+FROM python:3.13-slim AS runner
+
+# Create non-root system group and user (UID/GID 10001)
+RUN groupadd -g 10001 resecure && \
+    useradd -u 10001 -g resecure -s /bin/sh -M resecure
+
+WORKDIR /app
+
+# Copy installed virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+ENV PYTHONPATH="/app"
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Default runtime configuration
+ENV RESECURE_HOST=0.0.0.0
+ENV RESECURE_PORT=8000
+ENV RESECURE_STORAGE_DIR=/data
+ENV RESECURE_DB_PATH=/data/resecure.db
+ENV RESECURE_MAX_FILE_SIZE_BYTES=2147483648
+
+# Create storage directory and set non-root ownership
+RUN mkdir -p /data /app/resecure/database && \
+    chown -R resecure:resecure /data /app
+
+# Copy application source code and contracts
+COPY --chown=resecure:resecure resecure/ /app/resecure/
+COPY --chown=resecure:resecure contracts/ /app/contracts/
+
+# Declare persistent data volume
+VOLUME ["/data"]
+
+# Drop privileges to non-root user
+USER resecure
+
+# Expose backend REST API port
+EXPOSE 8000
+
+# Automated Healthcheck
+HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
+    CMD python -c "import urllib.request, sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/health').getcode() == 200 else 1)"
+
+# Start production ASGI server
+CMD ["uvicorn", "resecure.backend.src.api.app:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,40 @@
+{
+  "authentication": {
+    "algorithm": "HMAC-SHA256",
+    "hmac_signature": "b86aa1dce20782d1638d84e21a328817ff1b77d5cfe51196e5aa45ae49868e2d",
+    "key_id": "k-default-local-2026"
+  },
+  "created_at": "2026-10-31T17:59:33.567263Z",
+  "erasure_coding": {
+    "algorithm": "Reed-Solomon-GF256",
+    "chunk_size_bytes": 65536,
+    "data_chunks_k": 2,
+    "parity_chunks_m": 1,
+    "parity_file_name": "JNDCV.pdf.rsparity",
+    "redundancy_percentage": 20.0
+  },
+  "integrity": {
+    "chunks": [
+      {
+        "index": 0,
+        "offset": 0,
+        "sha256": "3708248a776905c749bb7bb89c8883162b5dc5f1315720cdd8ece7d37cb9611f",
+        "size_bytes": 65536
+      },
+      {
+        "index": 1,
+        "offset": 65536,
+        "sha256": "1c55f1a20dcdef52f9087b6c1f578271161b7b6b828fdf642df3d725a21674af",
+        "size_bytes": 8390
+      }
+    ],
+    "root_sha256": "e5a89132b0be6d8e283407dc795cb16a80873cd1d69a61bb735e41ecbbf1d1d4"
+  },
+  "manifest_version": "1.0.0",
+  "metadata": {
+    "file_format": "PDF",
+    "file_size_bytes": 73926,
+    "mime_type": "application/pdf",
+    "original_filename": "JNDCV.pdf"
+  }
+}

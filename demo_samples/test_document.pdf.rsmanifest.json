@@ -1,0 +1,40 @@
+{
+  "authentication": {
+    "algorithm": "HMAC-SHA256",
+    "hmac_signature": "210b6fbbad0b34248f5c30cffec764241e952d712e1c079e192b7dbe04f7ebc2",
+    "key_id": "k-default-local-2026"
+  },
+  "created_at": "2026-10-25T17:35:42.940801Z",
+  "erasure_coding": {
+    "algorithm": "Reed-Solomon-GF256",
+    "chunk_size_bytes": 65536,
+    "data_chunks_k": 2,
+    "parity_chunks_m": 1,
+    "parity_file_name": "test_document.pdf.rsparity",
+    "redundancy_percentage": 50
+  },
+  "integrity": {
+    "chunks": [
+      {
+        "index": 0,
+        "offset": 0,
+        "sha256": "9c1e3496cd8688a0711e8ebb0563dc9bc59cc7b3cead04ae4223dcfffeb37241",
+        "size_bytes": 65536
+      },
+      {
+        "index": 1,
+        "offset": 65536,
+        "sha256": "2978e1ae0e4641a56793ab97f133a423906843e8e41496235c1d7e6ed043ab7c",
+        "size_bytes": 62735
+      }
+    ],
+    "root_sha256": "0af579870805f8bbf012c0847cd65ea0dca25c7736cce010cab2589944b5cd2e"
+  },
+  "manifest_version": "1.0.0",
+  "metadata": {
+    "file_format": "PDF",
+    "file_size_bytes": 128271,
+    "mime_type": "application/pdf",
+    "original_filename": "test_document.pdf"
+  }
+}

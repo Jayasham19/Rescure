@@ -1,0 +1,58 @@
+{
+  "authentication": {
+    "algorithm": "HMAC-SHA256",
+    "hmac_signature": "910fb8e95913a9a9d3376613b61a11701989bf5302662c49c9986aa1be4796a3",
+    "key_id": "k-default-local-2026"
+  },
+  "created_at": "2026-10-23T17:44:47.053955Z",
+  "erasure_coding": {
+    "algorithm": "Reed-Solomon-GF256",
+    "chunk_size_bytes": 65536,
+    "data_chunks_k": 5,
+    "parity_chunks_m": 2,
+    "parity_file_name": "protected_database.dat.rsparity",
+    "redundancy_percentage": 34
+  },
+  "integrity": {
+    "chunks": [
+      {
+        "index": 0,
+        "offset": 0,
+        "sha256": "1707e69ac6cfe17aa9e73d6bfcde2b737d524f6a0a97e85246fe94b59a6dee82",
+        "size_bytes": 65536
+      },
+      {
+        "index": 1,
+        "offset": 65536,
+        "sha256": "806e8301ea2331a20b987fe98d579b98d694c087ce3f2557336a78d8118956cd",
+        "size_bytes": 65536
+      },
+      {
+        "index": 2,
+        "offset": 131072,
+        "sha256": "0ff72e55c61b38663d0c39290a9903c7af6e5592a38d19d2381b33547a53c584",
+        "size_bytes": 65536
+      },
+      {
+        "index": 3,
+        "offset": 196608,
+        "sha256": "fce1ec2b1505f2cb23cf88b92eb55890f048baf3309c3903a4def6688f30e18c",
+        "size_bytes": 65536
+      },
+      {
+        "index": 4,
+        "offset": 262144,
+        "sha256": "490ccda0753e5b7680ed4bfdde26d1af7864aeaa15197f1227152f9e80e0c0a2",
+        "size_bytes": 10455
+      }
+    ],
+    "root_sha256": "db8225508fb9e8952f426de350f9e270afd572cd3f669960b68f91620da5b431"
+  },
+  "manifest_version": "1.0.0",
+  "metadata": {
+    "file_format": "CSV",
+    "file_size_bytes": 272599,
+    "mime_type": "application/octet-stream",
+    "original_filename": "protected_database.dat"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "authentication": {
+    "algorithm": "HMAC-SHA256",
+    "hmac_signature": "89894aef138e27b5ce98525f712150811399d56d2045f6bf51f37a376becde49",
+    "key_id": "vault-key-prod-01"
+  },
+  "created_at": "2026-10-25T18:36:48.703767Z",
+  "erasure_coding": {
+    "algorithm": "Reed-Solomon-GF256",
+    "chunk_size_bytes": 65536,
+    "data_chunks_k": 12,
+    "parity_chunks_m": 3,
+    "parity_file_name": "Monitoring_interstate_river_2014-15.pdf.rsparity",
+    "redundancy_percentage": 20
+  },
+  "integrity": {
+    "chunks": [
+      {
+        "index": 0,
+        "offset": 0,
+        "sha256": "aaa46719d8f95a4959eefdd293c17b6df749364e51a441d0d5f999f61d60da97",
+        "size_bytes": 65536
+      },
+      {
+        "index": 1,
+        "offset": 65536,
+        "sha256": "ce47b0719c584d0e69e1359fa03b4b06f1b629ccc038ffd7203e4283a8b265c0",
+        "size_bytes": 65536
+      },
+      {
+        "index": 2,
+        "offset": 131072,
+        "sha256": "18e12b62616f641d2ff720d0bc5256bebd9c998b7f6bb657d9d2084a84d9e1c2",
+        "size_bytes": 65536
+      },
+      {
+        "index": 3,
+        "offset": 196608,
+        "sha256": "904a35666b935973b4b99daa30039434733a1310d28f6248690a87d2885724b1",
+        "size_bytes": 65536
+      },
+      {
+        "index": 4,
+        "offset": 262144,
+        "sha256": "7dea1ed9ed91a2f364acf232edced3a0aa898f81156d4f2ea0f67bbd2e6be76f",
+        "size_bytes": 65536
+      },
+      {
+        "index": 5,
+        "offset": 327680,
+        "sha256": "f506eae54667e80a5f4b7e1df38db31213fed420dc9fd443dea7cc33001379b2",
+        "size_bytes": 65536
+      },
+      {
+        "index": 6,
+        "offset": 393216,
+        "sha256": "6f5a958856d69836cb0fff4ffe2670ac82ceac11bdb8093e03b525d5b2f3954d",
+        "size_bytes": 65536
+      },
+      {
+        "index": 7,
+        "offset": 458752,
+        "sha256": "859ab2ae74a12ddb9bc37c74b8fc07ebb75b5a1740004a0a64d79c18330529be",
+        "size_bytes": 65536
+      },
+      {
+        "index": 8,
+        "offset": 524288,
+        "sha256": "bce4ff1e1a7f70e0ea0bf28eb3b476f5ad1c9fe86bd031126911497f5ff5d25a",
+        "size_bytes": 65536
+      },
+      {
+        "index": 9,
+        "offset": 589824,
+        "sha256": "8d07b7c7f5a4b604b53847733f37971db8e3d362bb3fcea44c9ea6d5a9543790",
+        "size_bytes": 65536
+      },
+      {
+        "index": 10,
+        "offset": 655360,
+        "sha256": "8f4a8fea885cfa70c47c8c7168159ddcf47c331a27e7439320adb14c98b18da8",
+        "size_bytes": 65536
+      },
+      {
+        "index": 11,
+        "offset": 720896,
+        "sha256": "14b5b49fb3fca75cefe13e0b820c761ef7defb86ae0ae15d24f3fc938f183c68",
+        "size_bytes": 41894
+      }
+    ],
+    "root_sha256": "851e67136581533b1e89120cc4b6cc1f023477df8cd7ff7b8d9fbacfc7d9c58b"
+  },
+  "manifest_version": "1.0.0",
+  "metadata": {
+    "file_format": "PDF",
+    "file_size_bytes": 762790,
+    "mime_type": "application/pdf",
+    "original_filename": "Monitoring_interstate_river_2014-15.pdf"
+  }
+}

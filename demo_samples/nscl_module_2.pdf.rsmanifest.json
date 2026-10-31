@@ -1,0 +1,280 @@
+{
+  "authentication": {
+    "algorithm": "HMAC-SHA256",
+    "hmac_signature": "02850e14503b1bbbe21fcdf4c0894b5157307d4dcb463e857aa9e000ef3e2c30",
+    "key_id": "k-default-local-2026"
+  },
+  "created_at": "2026-10-25T17:49:59.329913Z",
+  "erasure_coding": {
+    "algorithm": "Reed-Solomon-GF256",
+    "chunk_size_bytes": 65536,
+    "data_chunks_k": 42,
+    "parity_chunks_m": 9,
+    "parity_file_name": "nscl_module_2.pdf.rsparity",
+    "redundancy_percentage": 20
+  },
+  "integrity": {
+    "chunks": [
+      {
+        "index": 0,
+        "offset": 0,
+        "sha256": "6f49955845b77715be4e0fc590acd175cddd0b13233f13f426f69ec277fcbc12",
+        "size_bytes": 65536
+      },
+      {
+        "index": 1,
+        "offset": 65536,
+        "sha256": "5d3a249965920b664834b6e597c7a6bd1be9c6c6ae4af56f9495220175372e87",
+        "size_bytes": 65536
+      },
+      {
+        "index": 2,
+        "offset": 131072,
+        "sha256": "c535c6f645a6e60406b6fdcd0cea745e280df5b00cc800731c0d41dae2d44abf",
+        "size_bytes": 65536
+      },
+      {
+        "index": 3,
+        "offset": 196608,
+        "sha256": "41393a28c73e0074851029df29e3676a3337b375d6fb4eb52719bb809bd89966",
+        "size_bytes": 65536
+      },
+      {
+        "index": 4,
+        "offset": 262144,
+        "sha256": "5b3b3081629aea78494104049f534e373dbd293103b9c642a1e482894d70d027",
+        "size_bytes": 65536
+      },
+      {
+        "index": 5,
+        "offset": 327680,
+        "sha256": "0fdd0785c241a70fa08d177b27e58c6575c70a75c06674a04a3d146c16ba2c8f",
+        "size_bytes": 65536
+      },
+      {
+        "index": 6,
+        "offset": 393216,
+        "sha256": "e99e34a41d52031365ac73e868b5a174d61ea64e7bb0d6fc99b2062c754217cd",
+        "size_bytes": 65536
+      },
+      {
+        "index": 7,
+        "offset": 458752,
+        "sha256": "5d1564a8d57cde2075290015f44a7c8df5421f26b4e3f1b74e9f5e8a3934fa3a",
+        "size_bytes": 65536
+      },
+      {
+        "index": 8,
+        "offset": 524288,
+        "sha256": "9e625a41b62d12def24ca2f949534086a7eae9cb6f31437c6516634a76e9046d",
+        "size_bytes": 65536
+      },
+      {
+        "index": 9,
+        "offset": 589824,
+        "sha256": "98140443214a825d07a1f80f9af10d4c986ac2a28c69ebdce56870a35ce84351",
+        "size_bytes": 65536
+      },
+      {
+        "index": 10,
+        "offset": 655360,
+        "sha256": "84e5cddc686fb448ec4dc1603740cda66a53d00086b2ecf299b6282a55a18b0c",
+        "size_bytes": 65536
+      },
+      {
+        "index": 11,
+        "offset": 720896,
+        "sha256": "5b53b45edf4111bac2b35cea525c0a0cb4aafc9c474609f73ae888b90ea4c22e",
+        "size_bytes": 65536
+      },
+      {
+        "index": 12,
+        "offset": 786432,
+        "sha256": "fbf2cbb42283dfb6c2c5258bb2cd89a506891c8483e6308735340ec6471a41b4",
+        "size_bytes": 65536
+      },
+      {
+        "index": 13,
+        "offset": 851968,
+        "sha256": "3522a2c78052853f72bbe4c2dd05441f8ee50eab29809b49e3ad267fa245fa42",
+        "size_bytes": 65536
+      },
+      {
+        "index": 14,
+        "offset": 917504,
+        "sha256": "c0daccfaca9a02fb99265d1ef3a26b60198b8b823d758bf5d7f2c23feca9c3f4",
+        "size_bytes": 65536
+      },
+      {
+        "index": 15,
+        "offset": 983040,
+        "sha256": "8bfa99582abee53a96541c04db7e0cedb82081026fac9a768bf97e8e0eea8837",
+        "size_bytes": 65536
+      },
+      {
+        "index": 16,
+        "offset": 1048576,
+        "sha256": "32bb7f6b094198524ca6dd830d0d86cd7054f7786f0c26f024e2a0116a0f29b0",
+        "size_bytes": 65536
+      },
+      {
+        "index": 17,
+        "offset": 1114112,
+        "sha256": "a78728266cadbb733994b0955b8952ad80585013702be3ee340becd75fc9d336",
+        "size_bytes": 65536
+      },
+      {
+        "index": 18,
+        "offset": 1179648,
+        "sha256": "e833b7359386395c39d31678568f8c21ceb8d234e5dd69353801355443e06bd6",
+        "size_bytes": 65536
+      },
+      {
+        "index": 19,
+        "offset": 1245184,
+        "sha256": "3348a150c152798227f0192d46f94a43e5cc69c0b17d4b1f91fc58e112e45fc8",
+        "size_bytes": 65536
+      },
+      {
+        "index": 20,
+        "offset": 1310720,
+        "sha256": "ad5d36f3589b697d94bdb54498edae9735fb893f81ca9d9e0b33cb920e577dcc",
+        "size_bytes": 65536
+      },
+      {
+        "index": 21,
+        "offset": 1376256,
+        "sha256": "9ec1a3a2931d247c5383e4625d490e8d24246f2b5f8a212c72a4cd6eea9bdaae",
+        "size_bytes": 65536
+      },
+      {
+        "index": 22,
+        "offset": 1441792,
+        "sha256": "e378b8f32475abc4fddadc66836c9f4e589ebe19da6fdf841aee0a27cca1b9bc",
+        "size_bytes": 65536
+      },
+      {
+        "index": 23,
+        "offset": 1507328,
+        "sha256": "8bd4b668ee5a1ce5c9d66953c58c9208b7d962eb560f1317a58b8bcf270820e8",
+        "size_bytes": 65536
+      },
+      {
+        "index": 24,
+        "offset": 1572864,
+        "sha256": "f9b9b7ba433ee976e35470fd61c933c7b32b9cc4f0c002307076815bbec199e5",
+        "size_bytes": 65536
+      },
+      {
+        "index": 25,
+        "offset": 1638400,
+        "sha256": "e0899af1a70370f17bc7c91e8b8df75da84e029af6b8ad77adb8066ce6c0693b",
+        "size_bytes": 65536
+      },
+      {
+        "index": 26,
+        "offset": 1703936,
+        "sha256": "3a22f856c9b48a3bacb40f85e066deef642589c043ebdddad216543efa3ddb8a",
+        "size_bytes": 65536
+      },
+      {
+        "index": 27,
+        "offset": 1769472,
+        "sha256": "a13c7e7d1d82b78b42b61e19387d909d4e7e08c272a1575b33cb0ef368c84c3e",
+        "size_bytes": 65536
+      },
+      {
+        "index": 28,
+        "offset": 1835008,
+        "sha256": "88d17892d22736636005a38fb4b100db24f7f376c8c78adf410e89636294d716",
+        "size_bytes": 65536
+      },
+      {
+        "index": 29,
+        "offset": 1900544,
+        "sha256": "92f1cce09ae396b5b6955402d04b9bb2b1593416af47818e1eb14f9d876b7657",
+        "size_bytes": 65536
+      },
+      {
+        "index": 30,
+        "offset": 1966080,
+        "sha256": "7aa893758bb83586d04eaaea785fb4b63749583a2c40f800bc2b13ea309ada9e",
+        "size_bytes": 65536
+      },
+      {
+        "index": 31,
+        "offset": 2031616,
+        "sha256": "42c3739c5e14a80844494bc86fb88ebf9b51632277b012988045df63b23428a7",
+        "size_bytes": 65536
+      },
+      {
+        "index": 32,
+        "offset": 2097152,
+        "sha256": "b0abf788849e7f7186792fdfc50132fb1ad014008b3b3a9727380809fff3d902",
+        "size_bytes": 65536
+      },
+      {
+        "index": 33,
+        "offset": 2162688,
+        "sha256": "7a5dd3c9d9d52420e1bd57f17eabafd52287b6a80ece46df5cce4ddf516c7b7f",
+        "size_bytes": 65536
+      },
+      {
+        "index": 34,
+        "offset": 2228224,
+        "sha256": "6f51786f188d756a4ad7a6c14c2d591db4a5c8e9312e07371ed8133f7463bf7e",
+        "size_bytes": 65536
+      },
+      {
+        "index": 35,
+        "offset": 2293760,
+        "sha256": "a3937e271e216ef722938add93d72f35314713769c92c3007a4886224f7a9b88",
+        "size_bytes": 65536
+      },
+      {
+        "index": 36,
+        "offset": 2359296,
+        "sha256": "6b38dc6f5e5803cd43cf8273c951708ba2c87b80f1dfaa438b1f86960aa11443",
+        "size_bytes": 65536
+      },
+      {
+        "index": 37,
+        "offset": 2424832,
+        "sha256": "5c427423cdd2ba3e692b65913930263f71e4874477438069ddb4d727dfc61f64",
+        "size_bytes": 65536
+      },
+      {
+        "index": 38,
+        "offset": 2490368,
+        "sha256": "933f53c21e2c184c42d637e7289dd0166eb369bd0b7bc2870f1fdf3217ab50d2",
+        "size_bytes": 65536
+      },
+      {
+        "index": 39,
+        "offset": 2555904,
+        "sha256": "79e6891b1c8b91836f1f22570cea1c2fa50f6dda1f40c477c70aa53e59df2c1f",
+        "size_bytes": 65536
+      },
+      {
+        "index": 40,
+        "offset": 2621440,
+        "sha256": "d5cb2fcbe31b904764539661fe8fa595a60efffc948266aaa4d1acf00c58b01e",
+        "size_bytes": 65536
+      },
+      {
+        "index": 41,
+        "offset": 2686976,
+        "sha256": "64f926ddeba10d12a6c7a81b0019e1524c522698ab993e0eca60d41ae318d7c6",
+        "size_bytes": 20787
+      }
+    ],
+    "root_sha256": "54b4d9f1c04f48403e91fb10b03b582db0411308eee54d0ac1af14d5ce8e69fa"
+  },
+  "manifest_version": "1.0.0",
+  "metadata": {
+    "file_format": "PDF",
+    "file_size_bytes": 2707763,
+    "mime_type": "application/pdf",
+    "original_filename": "nscl_module_2.pdf"
+  }
+}

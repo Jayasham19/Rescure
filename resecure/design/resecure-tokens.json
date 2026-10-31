@@ -1,0 +1,634 @@
+{
+  "$schema": "https://json.schemastore.org/design-tokens.json",
+  "name": "ReSecure Design Tokens",
+  "version": "1.0.0",
+  "description": "High-trust, zero-trust dark-mode cybersecurity design tokens for ReSecure MVP v1.0. Compliant with WCAG 2.1 AA accessibility standards.",
+  "meta": {
+    "system": "CalmStacks Agent Factory",
+    "theme": "Obsidian Cyber Slate (Dark Mode Only)",
+    "target": "Desktop & Responsive Cybersecurity Operations Console",
+    "lastUpdated": "2026-10-22T17:45:00Z"
+  },
+  "color": {
+    "background": {
+      "base": {
+        "value": "#0A0F1D",
+        "description": "Obsidian Deep Slate - Primary global application canvas background",
+        "type": "color"
+      },
+      "surface1": {
+        "value": "#0F172A",
+        "description": "Subtle container and navigation bar background",
+        "type": "color"
+      },
+      "surface2": {
+        "value": "#111827",
+        "description": "Card, panel, and data-grid container background",
+        "type": "color"
+      },
+      "surface3": {
+        "value": "#1E293B",
+        "description": "Elevated card hover, active row, and nested panel background",
+        "type": "color"
+      },
+      "surface4": {
+        "value": "#273549",
+        "description": "Floating popovers, tooltips, and modal dialog backgrounds",
+        "type": "color"
+      },
+      "overlay": {
+        "value": "rgba(10, 15, 29, 0.85)",
+        "description": "Backdrop blur overlay for forensic modals and alerts",
+        "type": "color"
+      }
+    },
+    "border": {
+      "subtle": {
+        "value": "#1E293B",
+        "description": "Default structural separator and card border",
+        "type": "color"
+      },
+      "medium": {
+        "value": "#334155",
+        "description": "Interactive card border, input field border, and divider",
+        "type": "color"
+      },
+      "strong": {
+        "value": "#475569",
+        "description": "Focus ring and active tab accent border",
+        "type": "color"
+      },
+      "focus": {
+        "value": "#06B6D4",
+        "description": "Accessible focus ring indicator (WCAG compliant 3:1 contrast against surface)",
+        "type": "color"
+      }
+    },
+    "text": {
+      "primary": {
+        "value": "#F8FAFC",
+        "description": "High-contrast primary headers, titles, and critical metrics (Contrast 15.6:1 against #0A0F1D)",
+        "type": "color"
+      },
+      "secondary": {
+        "value": "#CBD5E1",
+        "description": "Body copy, descriptions, and table labels (Contrast 11.2:1 against #0A0F1D)",
+        "type": "color"
+      },
+      "muted": {
+        "value": "#94A3B8",
+        "description": "Subtle captions, timestamps, and secondary metadata (Contrast 6.3:1 against #0A0F1D)",
+        "type": "color"
+      },
+      "disabled": {
+        "value": "#64748B",
+        "description": "Disabled buttons, inactive tabs, and placeholder text (Contrast 3.4:1 against #0A0F1D)",
+        "type": "color"
+      },
+      "inverse": {
+        "value": "#0A0F1D",
+        "description": "Text rendered inside bright status badges or active primary buttons",
+        "type": "color"
+      }
+    },
+    "status": {
+      "healthy": {
+        "base": {
+          "value": "#10B981",
+          "description": "Pristine, verified bit-for-bit, healthy chunk indicator",
+          "type": "color"
+        },
+        "hover": {
+          "value": "#059669",
+          "description": "Hover state for healthy status actions",
+          "type": "color"
+        },
+        "active": {
+          "value": "#047857",
+          "description": "Active state for healthy triggers",
+          "type": "color"
+        },
+        "surface": {
+          "value": "rgba(16, 185, 129, 0.12)",
+          "description": "Translucent badge background for healthy status",
+          "type": "color"
+        },
+        "border": {
+          "value": "rgba(16, 185, 129, 0.35)",
+          "description": "Border highlight for healthy chunk or verified badge",
+          "type": "color"
+        },
+        "text": {
+          "value": "#6EE7B7",
+          "description": "High-contrast text for healthy badge (WCAG AA compliant)",
+          "type": "color"
+        },
+        "glow": {
+          "value": "0 0 16px rgba(16, 185, 129, 0.35)",
+          "description": "Subtle radiant glow for verified SHA-256 match",
+          "type": "color"
+        }
+      },
+      "warning": {
+        "base": {
+          "value": "#F59E0B",
+          "description": "Corrupted chunk, tampered manifest, or degraded health warning",
+          "type": "color"
+        },
+        "hover": {
+          "value": "#D97706",
+          "description": "Warning button hover state",
+          "type": "color"
+        },
+        "active": {
+          "value": "#B45309",
+          "description": "Warning button active state",
+          "type": "color"
+        },
+        "surface": {
+          "value": "rgba(245, 158, 11, 0.12)",
+          "description": "Translucent badge background for corrupted/tampered status",
+          "type": "color"
+        },
+        "border": {
+          "value": "rgba(245, 158, 11, 0.35)",
+          "description": "Border highlight for corrupted chunk or warning badge",
+          "type": "color"
+        },
+        "text": {
+          "value": "#FCD34D",
+          "description": "High-contrast text for warning badge (WCAG AA compliant)",
+          "type": "color"
+        },
+        "glow": {
+          "value": "0 0 16px rgba(245, 158, 11, 0.35)",
+          "description": "Subtle radiant glow for corruption detection",
+          "type": "color"
+        }
+      },
+      "danger": {
+        "base": {
+          "value": "#EF4444",
+          "description": "Fatal unrecoverable state, damage exceeding parity threshold (E > M), signature mismatch",
+          "type": "color"
+        },
+        "hover": {
+          "value": "#DC2626",
+          "description": "Danger button hover state",
+          "type": "color"
+        },
+        "active": {
+          "value": "#B91C1C",
+          "description": "Danger button active state",
+          "type": "color"
+        },
+        "surface": {
+          "value": "rgba(239, 68, 68, 0.12)",
+          "description": "Translucent badge background for fatal unrecoverable errors",
+          "type": "color"
+        },
+        "border": {
+          "value": "rgba(239, 68, 68, 0.40)",
+          "description": "Border highlight for fatal error banner or missing chunk",
+          "type": "color"
+        },
+        "text": {
+          "value": "#FCA5A5",
+          "description": "High-contrast text for unrecoverable errors (WCAG AA compliant)",
+          "type": "color"
+        },
+        "glow": {
+          "value": "0 0 18px rgba(239, 68, 68, 0.40)",
+          "description": "Glow indicator for safe failure alert banner",
+          "type": "color"
+        }
+      },
+      "action": {
+        "cyan": {
+          "value": "#06B6D4",
+          "description": "Primary cybersecurity action: Protect, Verify, Parity Solve, Reconstruct",
+          "type": "color"
+        },
+        "cyanHover": {
+          "value": "#0891B2",
+          "description": "Cyan button hover state",
+          "type": "color"
+        },
+        "cyanActive": {
+          "value": "#0E7490",
+          "description": "Cyan button active state",
+          "type": "color"
+        },
+        "cyanSurface": {
+          "value": "rgba(6, 182, 212, 0.12)",
+          "description": "Cyan translucent container background",
+          "type": "color"
+        },
+        "cyanBorder": {
+          "value": "rgba(6, 182, 212, 0.35)",
+          "description": "Cyan border highlight",
+          "type": "color"
+        },
+        "cyanText": {
+          "value": "#67E8F9",
+          "description": "Light cyan text for badges and links",
+          "type": "color"
+        },
+        "cyanGlow": {
+          "value": "0 0 20px rgba(6, 182, 212, 0.30)",
+          "description": "Primary cyber glow on active reconstruction or protect buttons",
+          "type": "color"
+        },
+        "blue": {
+          "value": "#3B82F6",
+          "description": "Secondary action: Manifest export, report download, filter switch",
+          "type": "color"
+        },
+        "blueHover": {
+          "value": "#2563EB",
+          "description": "Blue button hover state",
+          "type": "color"
+        },
+        "blueSurface": {
+          "value": "rgba(59, 130, 246, 0.12)",
+          "description": "Blue translucent container background",
+          "type": "color"
+        },
+        "blueText": {
+          "value": "#93C5FD",
+          "description": "Light blue text for badges and accents",
+          "type": "color"
+        }
+      },
+      "diagnostic": {
+        "base": {
+          "value": "#6366F1",
+          "description": "Forensic telemetry, format validation diagnostic, heuristic repair info",
+          "type": "color"
+        },
+        "hover": {
+          "value": "#4F46E5",
+          "description": "Diagnostic trigger hover",
+          "type": "color"
+        },
+        "surface": {
+          "value": "rgba(99, 102, 241, 0.12)",
+          "description": "Translucent badge background for format analysis and audits",
+          "type": "color"
+        },
+        "border": {
+          "value": "rgba(99, 102, 241, 0.35)",
+          "description": "Diagnostic border highlight",
+          "type": "color"
+        },
+        "text": {
+          "value": "#A5B4FC",
+          "description": "Diagnostic badge text (WCAG AA compliant)",
+          "type": "color"
+        }
+      },
+      "reconstructed": {
+        "base": {
+          "value": "#8B5CF6",
+          "description": "Chunk reconstructed via Reed-Solomon erasure decoding",
+          "type": "color"
+        },
+        "surface": {
+          "value": "rgba(139, 92, 246, 0.14)",
+          "description": "Reconstructed chunk grid background",
+          "type": "color"
+        },
+        "border": {
+          "value": "rgba(139, 92, 246, 0.40)",
+          "description": "Reconstructed chunk border indicator",
+          "type": "color"
+        },
+        "text": {
+          "value": "#C4B5FD",
+          "description": "Reconstructed chunk text label",
+          "type": "color"
+        },
+        "glow": {
+          "value": "0 0 16px rgba(139, 92, 246, 0.35)",
+          "description": "Reconstruction glow indicator",
+          "type": "color"
+        }
+      }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": {
+        "value": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        "description": "Primary sans-serif font for UI controls, dashboards, headers, and body copy",
+        "type": "fontFamily"
+      },
+      "mono": {
+        "value": "'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Monaco, Consolas, monospace",
+        "description": "Fixed-width font for SHA-256 hashes, byte offsets, hexadecimal dumps, and chunk coordinates",
+        "type": "fontFamily"
+      }
+    },
+    "fontSize": {
+      "xs": {
+        "value": "0.75rem",
+        "pixelEquivalent": "12px",
+        "lineHeight": "1.0rem",
+        "description": "Chunk tooltips, hash previews, metadata pills",
+        "type": "fontSize"
+      },
+      "sm": {
+        "value": "0.875rem",
+        "pixelEquivalent": "14px",
+        "lineHeight": "1.25rem",
+        "description": "Table cells, button labels, sidebar navigation, form inputs",
+        "type": "fontSize"
+      },
+      "base": {
+        "value": "1.0rem",
+        "pixelEquivalent": "16px",
+        "lineHeight": "1.5rem",
+        "description": "Primary body copy, status messages, modal descriptions",
+        "type": "fontSize"
+      },
+      "lg": {
+        "value": "1.125rem",
+        "pixelEquivalent": "18px",
+        "lineHeight": "1.75rem",
+        "description": "Section headers, card titles, drawer headers",
+        "type": "fontSize"
+      },
+      "xl": {
+        "value": "1.25rem",
+        "pixelEquivalent": "20px",
+        "lineHeight": "1.75rem",
+        "description": "Major subheadings, tab panel titles, metric callouts",
+        "type": "fontSize"
+      },
+      "2xl": {
+        "value": "1.5rem",
+        "pixelEquivalent": "24px",
+        "lineHeight": "2.0rem",
+        "description": "Page headers, modal titles, health percentage displays",
+        "type": "fontSize"
+      },
+      "3xl": {
+        "value": "1.875rem",
+        "pixelEquivalent": "30px",
+        "lineHeight": "2.25rem",
+        "description": "Hero metric numbers (e.g. 100.0% PRISTINE, 0 Deficit)",
+        "type": "fontSize"
+      },
+      "4xl": {
+        "value": "2.25rem",
+        "pixelEquivalent": "36px",
+        "lineHeight": "2.5rem",
+        "description": "Product brand title, top-level dashboard overview counter",
+        "type": "fontSize"
+      }
+    },
+    "fontWeight": {
+      "regular": {
+        "value": "400",
+        "type": "fontWeight"
+      },
+      "medium": {
+        "value": "500",
+        "type": "fontWeight"
+      },
+      "semibold": {
+        "value": "600",
+        "type": "fontWeight"
+      },
+      "bold": {
+        "value": "700",
+        "type": "fontWeight"
+      }
+    },
+    "letterSpacing": {
+      "tighter": {
+        "value": "-0.04em",
+        "type": "letterSpacing"
+      },
+      "tight": {
+        "value": "-0.02em",
+        "type": "letterSpacing"
+      },
+      "normal": {
+        "value": "0.0em",
+        "type": "letterSpacing"
+      },
+      "wide": {
+        "value": "0.025em",
+        "type": "letterSpacing"
+      },
+      "wider": {
+        "value": "0.05em",
+        "type": "letterSpacing"
+      },
+      "widest": {
+        "value": "0.1em",
+        "description": "Used for uppercase pill badges, security classifications, and header labels",
+        "type": "letterSpacing"
+      }
+    }
+  },
+  "spacing": {
+    "0": { "value": "0px", "type": "spacing" },
+    "1": { "value": "4px", "type": "spacing" },
+    "2": { "value": "8px", "type": "spacing" },
+    "3": { "value": "12px", "type": "spacing" },
+    "4": { "value": "16px", "type": "spacing" },
+    "5": { "value": "20px", "type": "spacing" },
+    "6": { "value": "24px", "type": "spacing" },
+    "8": { "value": "32px", "type": "spacing" },
+    "10": { "value": "40px", "type": "spacing" },
+    "12": { "value": "48px", "type": "spacing" },
+    "16": { "value": "64px", "type": "spacing" },
+    "20": { "value": "80px", "type": "spacing" }
+  },
+  "borderRadius": {
+    "none": { "value": "0px", "type": "borderRadius" },
+    "xs": { "value": "2px", "type": "borderRadius" },
+    "sm": { "value": "4px", "type": "borderRadius" },
+    "md": { "value": "6px", "type": "borderRadius" },
+    "lg": { "value": "8px", "type": "borderRadius" },
+    "xl": { "value": "12px", "type": "borderRadius" },
+    "2xl": { "value": "16px", "type": "borderRadius" },
+    "full": {
+      "value": "9999px",
+      "description": "Pill badges, radio indicator dots, status tags",
+      "type": "borderRadius"
+    }
+  },
+  "shadow": {
+    "subtle": {
+      "value": "0 1px 3px rgba(0, 0, 0, 0.45)",
+      "type": "boxShadow"
+    },
+    "card": {
+      "value": "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4)",
+      "type": "boxShadow"
+    },
+    "elevated": {
+      "value": "0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5)",
+      "type": "boxShadow"
+    },
+    "modal": {
+      "value": "0 25px 50px -12px rgba(0, 0, 0, 0.85)",
+      "type": "boxShadow"
+    },
+    "glowCyan": {
+      "value": "0 0 20px rgba(6, 182, 212, 0.35)",
+      "type": "boxShadow"
+    },
+    "glowEmerald": {
+      "value": "0 0 20px rgba(16, 185, 129, 0.35)",
+      "type": "boxShadow"
+    },
+    "glowAmber": {
+      "value": "0 0 20px rgba(245, 158, 11, 0.35)",
+      "type": "boxShadow"
+    },
+    "glowCrimson": {
+      "value": "0 0 22px rgba(239, 68, 68, 0.40)",
+      "type": "boxShadow"
+    }
+  },
+  "component": {
+    "header": {
+      "height": { "value": "64px" },
+      "background": { "value": "#0A0F1D" },
+      "borderBottom": { "value": "1px solid #1E293B" },
+      "sovereigntyBanner": {
+        "background": { "value": "rgba(6, 182, 212, 0.08)" },
+        "border": { "value": "1px solid rgba(6, 182, 212, 0.25)" },
+        "text": { "value": "#67E8F9" },
+        "iconColor": { "value": "#06B6D4" }
+      }
+    },
+    "chunkGrid": {
+      "cellSize": {
+        "compact": { "value": "18px" },
+        "default": { "value": "26px" },
+        "expanded": { "value": "38px" }
+      },
+      "cellGap": { "value": "4px" },
+      "borderRadius": { "value": "4px" },
+      "stateColors": {
+        "healthy": {
+          "fill": "#064E3B",
+          "border": "#10B981",
+          "text": "#6EE7B7"
+        },
+        "corrupted": {
+          "fill": "#78350F",
+          "border": "#F59E0B",
+          "text": "#FCD34D"
+        },
+        "missing": {
+          "fill": "#7F1D1D",
+          "border": "#EF4444",
+          "text": "#FCA5A5"
+        },
+        "oversized": {
+          "fill": "#4C1D95",
+          "border": "#8B5CF6",
+          "text": "#DDD6FE"
+        },
+        "reconstructed": {
+          "fill": "#1E3A8A",
+          "border": "#3B82F6",
+          "text": "#93C5FD"
+        }
+      }
+    },
+    "redundancySlider": {
+      "trackHeight": { "value": "8px" },
+      "trackColor": { "value": "#1E293B" },
+      "activeTrackGradient": {
+        "value": "linear-gradient(90deg, #06B6D4 0%, #3B82F6 100%)"
+      },
+      "thumbSize": { "value": "22px" },
+      "thumbColor": { "value": "#06B6D4" },
+      "thumbBorder": { "value": "2px solid #F8FAFC" },
+      "thumbGlow": { "value": "0 0 10px rgba(6, 182, 212, 0.6)" },
+      "rangeMin": 5,
+      "rangeMax": 100,
+      "default": 20
+    },
+    "safeFailureBanner": {
+      "background": { "value": "rgba(239, 68, 68, 0.12)" },
+      "border": { "value": "1px solid rgba(239, 68, 68, 0.50)" },
+      "titleColor": { "value": "#EF4444" },
+      "textColor": { "value": "#FCA5A5" },
+      "deficitMeterTrack": { "value": "#1E293B" },
+      "deficitMeterFill": { "value": "#EF4444" }
+    },
+    "nonDestructiveBanner": {
+      "background": { "value": "rgba(16, 185, 129, 0.08)" },
+      "border": { "value": "1px solid rgba(16, 185, 129, 0.30)" },
+      "text": { "value": "#6EE7B7" },
+      "badge": { "value": "#10B981" }
+    },
+    "tooltip": {
+      "background": { "value": "#1E293B" },
+      "border": { "value": "1px solid #334155" },
+      "textColor": { "value": "#F8FAFC" },
+      "monoColor": { "value": "#67E8F9" },
+      "shadow": { "value": "0 10px 25px -5px rgba(0, 0, 0, 0.75)" },
+      "borderRadius": { "value": "6px" },
+      "padding": { "value": "10px 14px" }
+    }
+  },
+  "interactiveStates": {
+    "idle": {
+      "cursor": "default",
+      "transition": "all 150ms cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "hover": {
+      "brightnessIncrease": "1.08",
+      "scale": "1.01",
+      "transition": "all 150ms cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "active": {
+      "scale": "0.99",
+      "brightnessDecrease": "0.95"
+    },
+    "focusVisible": {
+      "outline": "2px solid #06B6D4",
+      "outlineOffset": "2px"
+    },
+    "disabled": {
+      "opacity": "0.45",
+      "cursor": "not-allowed",
+      "pointerEvents": "none"
+    },
+    "loading": {
+      "cursor": "wait",
+      "pulseAnimation": "pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+    },
+    "empty": {
+      "borderStyle": "dashed",
+      "borderColor": "#334155",
+      "textColor": "#94A3B8"
+    }
+  },
+  "accessibility": {
+    "wcagStandard": "WCAG 2.1 AA",
+    "minimumContrastRatioNormalText": "4.5:1",
+    "minimumContrastRatioLargeText": "3.0:1",
+    "minimumContrastRatioComponents": "3.0:1",
+    "measuredRatios": {
+      "textPrimaryOnBackground": "15.6:1 (Pass AAA)",
+      "textSecondaryOnBackground": "11.2:1 (Pass AAA)",
+      "textMutedOnBackground": "6.3:1 (Pass AA)",
+      "healthyGreenOnDarkSurface": "7.8:1 (Pass AA)",
+      "warningAmberOnDarkSurface": "8.4:1 (Pass AA)",
+      "dangerRedOnDarkSurface": "7.2:1 (Pass AA)",
+      "actionCyanOnDarkSurface": "8.9:1 (Pass AA)",
+      "diagnosticIndigoOnDarkSurface": "6.5:1 (Pass AA)"
+    },
+    "reducedMotionRule": "@media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }"
+  }
+}

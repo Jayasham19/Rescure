@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "task_id": "TASK-RS-007",
+  "epic": "resecure",
+  "agent": "Security Agent",
+  "branch": "feature/resecure-mvp",
+  "status": "READY_FOR_REVIEW",
+  "timestamp": "2026-10-22T19:00:00Z",
+  "changes": {
+    "files_created": [
+      ".security/scan_secrets.py",
+      ".security/test_security_suite.py",
+      "docs/reports/security/resecure-security-report.md",
+      "resecure/docs/reports/security/resecure-security-report.md",
+      "docs/handoffs/resecure-security.json",
+      "docs/handoffs/resecure-security.md",
+      "resecure/docs/handoffs/resecure-security.json",
+      "resecure/docs/handoffs/resecure-security.md"
+    ],
+    "files_modified": [],
+    "files_deleted": []
+  },
+  "contracts_consumed": [
+    "contracts/resecure/api.yaml",
+    "contracts/resecure/schema.sql",
+    "docs/architecture/resecure-architecture.md"
+  ],
+  "contracts_produced": [
+    "docs/reports/security/resecure-security-report.md"
+  ],
+  "verification": {
+    "type_check_passed": true,
+    "linter_passed": true,
+    "unit_tests_run": 92,
+    "unit_tests_passed": 92,
+    "test_command": "python -m pytest .security/test_security_suite.py resecure/backend/tests resecure/evals/test_aiml_evals.py -v && node --experimental-strip-types resecure/frontend/tests/verify-frontend.mjs",
+    "test_log_path": "docs/reports/security/resecure-security-report.md"
+  },
+  "known_limitations": [
+    "SEC-01 (Advisory): Default fallback static HMAC secret key (DEFAULT_SECRET_KEY) in manifest.py must be replaced with mandatory RESECURE_HMAC_SECRET env var in production.",
+    "SEC-02 (Advisory): PathTraversalGuardMiddleware currently checks relative sequences ('..', '\\x00'); absolute system paths (e.g. C:\\Windows\\System32, /etc/passwd) require a storage jail root check.",
+    "SEC-03 (Advisory): Parity container (.rsparity) parser unpacks version and chunk bounds without upper-bound assertions, allowing potential allocation bombs from untrusted files.",
+    "SEC-04 (Advisory): Protection service buffers entire file chunks in slice_file_into_chunks, which can exceed the 150MB RSS limit on 2GB files unless refactored to rolling sub-blocks.",
+    "SEC-05 (Advisory): Uncaught RecursionError in validate_json when parsing maliciously nested JSON > 2,000 brackets before depth checks execute.",
+    "SEC-06 (Advisory): repair_file_format writes directly to output_path instead of staging atomically via temporary files.",
+    "SEC-07 (Advisory): CORS wildcard configured with allow_origins=['*'] and allow_credentials=True.",
+    "SEC-08 (Advisory): 9 transitive NPM vulnerabilities detected in build tools (braces, esbuild) requiring overrides in package.json."
+  ],
+  "downstream_actions": [
+    "Backend Agent: Implement SEC-01 through SEC-06 remediations during production hardening sprint.",
+    "DevOps Agent: Add SEC-08 dependency overrides in frontend package.json, configure production secrets management for RESECURE_HMAC_SECRET.",
+    "Lead Agent / QA Agent: Perform final acceptance verification and gate merge to main branch."
+  ]
+}

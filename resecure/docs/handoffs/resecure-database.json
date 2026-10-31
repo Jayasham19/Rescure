@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "task_id": "TASK-RS-004",
+  "epic": "resecure",
+  "agent": "Database Agent",
+  "branch": "feature/resecure",
+  "status": "READY_FOR_REVIEW",
+  "timestamp": "2026-10-22T18:15:00Z",
+  "changes": {
+    "files_created": [
+      "resecure/database/resecure_schema.sql",
+      "database/resecure_schema.sql",
+      "resecure/backend/src/db/__init__.py",
+      "resecure/backend/src/db/connection.py",
+      "resecure/backend/src/db/models.py",
+      "resecure/backend/src/db/schema.py",
+      "resecure/backend/src/db/repository.py",
+      "resecure/database/__init__.py",
+      "resecure/database/seeds.py",
+      "resecure/backend/tests/__init__.py",
+      "resecure/backend/tests/test_database.py",
+      "docs/reports/qa/resecure-database-test.log",
+      "docs/handoffs/resecure-database.json",
+      "docs/handoffs/resecure-database.md",
+      "resecure/docs/handoffs/resecure-database.json",
+      "resecure/docs/handoffs/resecure-database.md"
+    ],
+    "files_modified": [
+      "contracts/resecure/schema.sql",
+      "resecure/contracts/schema.sql"
+    ],
+    "files_deleted": []
+  },
+  "contracts_consumed": [
+    "contracts/resecure/schema.sql",
+    "docs/architecture/resecure-architecture.md",
+    "contracts/resecure/types.ts"
+  ],
+  "contracts_produced": [
+    "resecure/database/resecure_schema.sql",
+    "database/resecure_schema.sql",
+    "contracts/resecure/schema.sql",
+    "resecure/contracts/schema.sql"
+  ],
+  "verification": {
+    "type_check_passed": true,
+    "linter_passed": true,
+    "unit_tests_run": 14,
+    "unit_tests_passed": 14,
+    "test_command": "python -m unittest discover -s resecure/backend/tests -p \"test_*.py\" -v",
+    "test_log_path": "docs/reports/qa/resecure-database-test.log"
+  },
+  "known_limitations": [
+    "SQLite concurrency in WAL mode allows multiple concurrent readers with one writer; busy_timeout is set to 5000ms to handle lock contention.",
+    "In-memory database (:memory:) instances reuse a shared thread connection to preserve tables and fixtures during testing lifecycles."
+  ],
+  "downstream_actions": [
+    "Backend Agent (TASK-RS-005): Integrate ReSecureRepository and DatabaseConnectionManager into FastAPI service layer and route dependencies.",
+    "QA Agent (TASK-RS-006): Utilize resecure.database.seeds fixtures for simulated bit-flip chaos injection, integrity checks, and RS recovery verification.",
+    "Frontend Agent: Utilize seeded file and chunk status models for the chunk grid visualizer and dashboard inspection panels."
+  ]
+}

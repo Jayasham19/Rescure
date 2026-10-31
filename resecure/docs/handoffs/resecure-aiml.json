@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "task_id": "TASK-RS-005A",
+  "epic": "resecure",
+  "agent": "AI/ML Agent",
+  "branch": "feature/resecure/aiml",
+  "status": "READY_FOR_REVIEW",
+  "timestamp": "2026-10-22T18:00:00Z",
+  "changes": {
+    "files_created": [
+      "resecure/ai/__init__.py",
+      "resecure/ai/classifier.py",
+      "resecure/ai/format_detector.py",
+      "resecure/evals/__init__.py",
+      "resecure/evals/codec.py",
+      "resecure/evals/benchmark_cases.py",
+      "resecure/evals/generative_simulator.py",
+      "resecure/evals/eval_recovery_benchmark.py",
+      "resecure/evals/benchmark_results.json",
+      "resecure/evals/test_aiml_evals.py",
+      "docs/reports/ai-recovery-evaluation.md",
+      "resecure/docs/reports/ai-recovery-evaluation.md",
+      "docs/handoffs/resecure-aiml.json",
+      "docs/handoffs/resecure-aiml.md"
+    ],
+    "files_modified": [],
+    "files_deleted": []
+  },
+  "contracts_consumed": [
+    "docs/prd/resecure-mvp.prd.md",
+    "docs/architecture/resecure-architecture.md",
+    "docs/adr/ADR-003-resecure-stack.md",
+    "resecure/contracts/types.ts",
+    "resecure/contracts/api.yaml"
+  ],
+  "contracts_produced": [
+    "docs/reports/ai-recovery-evaluation.md",
+    "resecure/docs/reports/ai-recovery-evaluation.md",
+    "resecure/evals/benchmark_results.json"
+  ],
+  "verification": {
+    "type_check_passed": true,
+    "linter_passed": true,
+    "unit_tests_run": 16,
+    "unit_tests_passed": 16,
+    "test_command": "python -m pytest resecure/evals/test_aiml_evals.py -v && python resecure/evals/eval_recovery_benchmark.py",
+    "test_log_path": "resecure/evals/benchmark_results.json"
+  },
+  "known_limitations": [
+    "Generative AI / heuristic approaches strictly fail cryptographic hash invariance (P(match) = 0.0) and should never be used for binary or evidentiary data reconstruction.",
+    "Reed-Solomon exact recovery is bounded to cases where damaged chunk count E <= M parity shards. When E > M, the Safe Failure Protocol halts commit."
+  ],
+  "downstream_actions": [
+    "Backend Agent (TASK-RS-003): Integrate CorruptionPatternClassifier into /api/verify to enrich corruption audit responses with threat vector telemetry.",
+    "Backend Agent (TASK-RS-003): Integrate FormatDetector into /api/validate-format for automatic format inference when headers or magic bytes are missing.",
+    "QA Agent (TASK-RS-004): Incorporate benchmark_cases.py damage injection routines into end-to-end chaos testing."
+  ]
+}

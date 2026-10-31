@@ -1,0 +1,94 @@
+{
+  "authentication": {
+    "algorithm": "HMAC-SHA256",
+    "hmac_signature": "2e99cb3eb3258187e4acbdfce02e5f6a1c174b36fc52b454ef24d1c7533c97df",
+    "key_id": "k-default-local-2026"
+  },
+  "created_at": "2026-10-24T19:28:42.606457Z",
+  "erasure_coding": {
+    "algorithm": "Reed-Solomon-GF256",
+    "chunk_size_bytes": 65536,
+    "data_chunks_k": 11,
+    "parity_chunks_m": 3,
+    "parity_file_name": "report.pdf.rsparity",
+    "redundancy_percentage": 25
+  },
+  "integrity": {
+    "chunks": [
+      {
+        "index": 0,
+        "offset": 0,
+        "sha256": "517bf84ecca9a5c0ab4f7bc5bcb76b7a27c73f443ab0e90090ca48827b1c0298",
+        "size_bytes": 65536
+      },
+      {
+        "index": 1,
+        "offset": 65536,
+        "sha256": "0a20e28dac982b72faa7e84449101a906d8fe0826bb0a2f99e5947e4504e46be",
+        "size_bytes": 65536
+      },
+      {
+        "index": 2,
+        "offset": 131072,
+        "sha256": "bb07823b8d208f46a41b1ec01ff333715552a3185f0cbe7b3e8e57a2f9611beb",
+        "size_bytes": 65536
+      },
+      {
+        "index": 3,
+        "offset": 196608,
+        "sha256": "f6309018408ba69bb394d486389878eb1d5121893970c322ab25f3d72f61145e",
+        "size_bytes": 65536
+      },
+      {
+        "index": 4,
+        "offset": 262144,
+        "sha256": "daaa03a9ef12d28787a3769c102c4faacb0bdd42fb7e6f5f5d5469e3e5fee18d",
+        "size_bytes": 65536
+      },
+      {
+        "index": 5,
+        "offset": 327680,
+        "sha256": "09f45552a109743c6f452a43cc778114536c2cd5e3cfe820aa8922b9490d97b8",
+        "size_bytes": 65536
+      },
+      {
+        "index": 6,
+        "offset": 393216,
+        "sha256": "d6f71686ef16bdf0f80e030748439ab4139bdaa454afac0a0602827e16caca96",
+        "size_bytes": 65536
+      },
+      {
+        "index": 7,
+        "offset": 458752,
+        "sha256": "eef5e1a0487b1f9fce24565665927dbeb5b4f17eddd015ba92a3bb9affa3e7ef",
+        "size_bytes": 65536
+      },
+      {
+        "index": 8,
+        "offset": 524288,
+        "sha256": "7b77f1d2581b17f0abb2798f222d624bedd7e00babf90d0b2b92361b11e86679",
+        "size_bytes": 65536
+      },
+      {
+        "index": 9,
+        "offset": 589824,
+        "sha256": "df18d8ee250b5a4137f306ff4b455711a2034742c068bba24c93e6e690be35de",
+        "size_bytes": 65536
+      },
+      {
+        "index": 10,
+        "offset": 655360,
+        "sha256": "ab825e4b825dc964177aedf324fa54937fe9b739e86ec4305d285c36bceb5f9b",
+        "size_bytes": 59556
+      }
+    ],
+    "root_sha256": "298eb4abef7f796fed61952fd154df45913263b7058a69a59e902b3179bf3bb1"
+  },
+  "manifest_version": "1.0.0",
+  "metadata": {
+    "file_format": "PDF",
+    "file_size_bytes": 714916,
+    "mime_type": "application/pdf",
+    "original_filename": "report.pdf"
+  }
+}

@@ -1,0 +1,93 @@
+# ==============================================================================
+# ReSecure - Git Ignore Configuration
+# ==============================================================================
+
+# Python Virtual Environments & Packages
+venv/
+.venv/
+env/
+ENV/
+resecure/backend/venv/
+backend/venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node & Frontend Build
+node_modules/
+resecure/frontend/node_modules/
+resecure/frontend/dist/
+dist/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Databases & Runtime State
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+resecure/database/resecure.db
+resecure/database/resecure.db-wal
+resecure/database/resecure.db-shm
+
+# Runtime Staging & Uploads (preserve staging directory structure)
+data/*
+!data/staging/
+!data/staging/.gitkeep
+
+# Secrets & Environment Configurations (NEVER COMMIT)
+.env
+.env.local
+.env.*.local
+resecure/.env
+!.env.example
+!resecure/.env.example
+*.pem
+*.key
+*.cert
+secrets/
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary Test Artifacts (root only)
+/corrupted_*.pdf
+/recovered_*.pdf
+/repaired_*.pdf
+/Corrupted_*.pdf
+/Recovered_*.pdf
+*.tmp

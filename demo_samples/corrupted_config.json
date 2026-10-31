@@ -1,0 +1,10 @@
+{
+  "system": "ReSecure Cyber Gateway",
+  "version": "1.0.0",
+  "cluster_nodes": [
+    {"id": "node-01", "status": "ACTIVE"},
+    {"id": "node-02", "status": "STANDBY"},
+  ],
+  "security_policies": {
+    "max_retries": 3,
+    "air_gap_enforced": true

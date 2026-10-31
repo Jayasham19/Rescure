@@ -1,0 +1,1250 @@
+{
+  "timestamp": "2026-10-22T18:02:25Z",
+  "total_test_cases": 34,
+  "reed_solomon_metrics": {
+    "recoverable_cases_tested": 28,
+    "exact_sha256_matches": 28,
+    "recovery_success_rate_pct": 100.0,
+    "bit_error_rate": 0.0,
+    "unrecoverable_cases_tested": 6,
+    "safe_failures_triggered": 6,
+    "safe_failure_compliance_pct": 100.0,
+    "total_processing_time_ms": 89.013
+  },
+  "generative_ai_metrics": {
+    "total_cases_evaluated": 34,
+    "exact_sha256_matches": 0,
+    "exact_sha256_match_rate_pct": 0.0,
+    "average_hallucination_rate_pct": 37.0,
+    "average_bit_error_rate_pct": 12.24,
+    "syntax_valid_rate_pct": 76.47
+  },
+  "corruption_classifier_metrics": {
+    "total_cases": 34,
+    "correct_predictions": 34,
+    "accuracy_pct": 100.0,
+    "confusion_matrix": {
+      "BIT_FLIP": {
+        "BIT_FLIP": 5
+      },
+      "HEADER_WIPE": {
+        "HEADER_WIPE": 5
+      },
+      "ZERO_FILL": {
+        "ZERO_FILL": 5
+      },
+      "TRUNCATION": {
+        "TRUNCATION": 5
+      },
+      "RANSOMWARE_ENCRYPTION": {
+        "RANSOMWARE_ENCRYPTION": 5
+      },
+      "LINE_ENDING_CORRUPTION": {
+        "LINE_ENDING_CORRUPTION": 3
+      },
+      "MULTI_CHUNK_WIPE": {
+        "MULTI_CHUNK_WIPE": 6
+      }
+    }
+  },
+  "format_identification_metrics": {
+    "header_wiped_assets_tested": 5,
+    "correct_format_predictions": 5,
+    "accuracy_pct": 100.0
+  },
+  "detailed_results": {
+    "reed_solomon": [
+      {
+        "case_id": "CASE_TEXT_BIT_FLIP",
+        "format": "TEXT",
+        "corruption_type": "BIT_FLIP",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.404,
+        "throughput_mb_s": 0.27,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_CSV_BIT_FLIP",
+        "format": "CSV",
+        "corruption_type": "BIT_FLIP",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 6.441,
+        "throughput_mb_s": 0.31,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JSON_BIT_FLIP",
+        "format": "JSON",
+        "corruption_type": "BIT_FLIP",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 2.795,
+        "throughput_mb_s": 0.37,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_PNG_BIT_FLIP",
+        "format": "PNG",
+        "corruption_type": "BIT_FLIP",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 0.806,
+        "throughput_mb_s": 0.37,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JPEG_BIT_FLIP",
+        "format": "JPEG",
+        "corruption_type": "BIT_FLIP",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.687,
+        "throughput_mb_s": 0.3,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_TEXT_HEADER_WIPE",
+        "format": "TEXT",
+        "corruption_type": "HEADER_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.293,
+        "throughput_mb_s": 0.28,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_CSV_HEADER_WIPE",
+        "format": "CSV",
+        "corruption_type": "HEADER_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 6.236,
+        "throughput_mb_s": 0.32,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JSON_HEADER_WIPE",
+        "format": "JSON",
+        "corruption_type": "HEADER_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 2.831,
+        "throughput_mb_s": 0.37,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_PNG_HEADER_WIPE",
+        "format": "PNG",
+        "corruption_type": "HEADER_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 0.714,
+        "throughput_mb_s": 0.42,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JPEG_HEADER_WIPE",
+        "format": "JPEG",
+        "corruption_type": "HEADER_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.507,
+        "throughput_mb_s": 0.31,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_TEXT_ZERO_FILL",
+        "format": "TEXT",
+        "corruption_type": "ZERO_FILL",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.322,
+        "throughput_mb_s": 0.28,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_CSV_ZERO_FILL",
+        "format": "CSV",
+        "corruption_type": "ZERO_FILL",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 6.58,
+        "throughput_mb_s": 0.3,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JSON_ZERO_FILL",
+        "format": "JSON",
+        "corruption_type": "ZERO_FILL",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 2.704,
+        "throughput_mb_s": 0.39,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_PNG_ZERO_FILL",
+        "format": "PNG",
+        "corruption_type": "ZERO_FILL",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 0.811,
+        "throughput_mb_s": 0.37,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JPEG_ZERO_FILL",
+        "format": "JPEG",
+        "corruption_type": "ZERO_FILL",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.785,
+        "throughput_mb_s": 0.29,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_TEXT_TRUNCATION",
+        "format": "TEXT",
+        "corruption_type": "TRUNCATION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 0.918,
+        "throughput_mb_s": 1.02,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_CSV_TRUNCATION",
+        "format": "CSV",
+        "corruption_type": "TRUNCATION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 2.03,
+        "throughput_mb_s": 0.97,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JSON_TRUNCATION",
+        "format": "JSON",
+        "corruption_type": "TRUNCATION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 2.603,
+        "throughput_mb_s": 0.4,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_PNG_TRUNCATION",
+        "format": "PNG",
+        "corruption_type": "TRUNCATION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 0.783,
+        "throughput_mb_s": 0.38,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JPEG_TRUNCATION",
+        "format": "JPEG",
+        "corruption_type": "TRUNCATION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 1.051,
+        "throughput_mb_s": 1.04,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_TEXT_RANSOMWARE_ENCRYPTION",
+        "format": "TEXT",
+        "corruption_type": "RANSOMWARE_ENCRYPTION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.271,
+        "throughput_mb_s": 0.29,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_CSV_RANSOMWARE_ENCRYPTION",
+        "format": "CSV",
+        "corruption_type": "RANSOMWARE_ENCRYPTION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 6.589,
+        "throughput_mb_s": 0.3,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JSON_RANSOMWARE_ENCRYPTION",
+        "format": "JSON",
+        "corruption_type": "RANSOMWARE_ENCRYPTION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 2.764,
+        "throughput_mb_s": 0.38,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_PNG_RANSOMWARE_ENCRYPTION",
+        "format": "PNG",
+        "corruption_type": "RANSOMWARE_ENCRYPTION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 0.844,
+        "throughput_mb_s": 0.36,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JPEG_RANSOMWARE_ENCRYPTION",
+        "format": "JPEG",
+        "corruption_type": "RANSOMWARE_ENCRYPTION",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.594,
+        "throughput_mb_s": 0.3,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_TEXT_LINE_ENDING",
+        "format": "TEXT",
+        "corruption_type": "LINE_ENDING_CORRUPTION",
+        "is_recoverable": false,
+        "verdict": "UNRECOVERABLE_EXACT",
+        "hash_verified_exact": false,
+        "bit_error_rate": 1.0,
+        "byte_error_rate": 1.0,
+        "duration_ms": 0.001,
+        "throughput_mb_s": 0.0,
+        "safe_failure_triggered": true
+      },
+      {
+        "case_id": "CASE_CSV_LINE_ENDING",
+        "format": "CSV",
+        "corruption_type": "LINE_ENDING_CORRUPTION",
+        "is_recoverable": false,
+        "verdict": "UNRECOVERABLE_EXACT",
+        "hash_verified_exact": false,
+        "bit_error_rate": 1.0,
+        "byte_error_rate": 1.0,
+        "duration_ms": 0.0,
+        "throughput_mb_s": 0.0,
+        "safe_failure_triggered": true
+      },
+      {
+        "case_id": "CASE_JSON_LINE_ENDING",
+        "format": "JSON",
+        "corruption_type": "LINE_ENDING_CORRUPTION",
+        "is_recoverable": false,
+        "verdict": "UNRECOVERABLE_EXACT",
+        "hash_verified_exact": false,
+        "bit_error_rate": 1.0,
+        "byte_error_rate": 1.0,
+        "duration_ms": 0.0,
+        "throughput_mb_s": 0.0,
+        "safe_failure_triggered": true
+      },
+      {
+        "case_id": "CASE_CSV_MULTI_CHUNK_RECOVERABLE",
+        "format": "CSV",
+        "corruption_type": "MULTI_CHUNK_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 8.642,
+        "throughput_mb_s": 0.23,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_JSON_MULTI_CHUNK_RECOVERABLE",
+        "format": "JSON",
+        "corruption_type": "MULTI_CHUNK_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 3.731,
+        "throughput_mb_s": 0.28,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_PNG_MULTI_CHUNK_RECOVERABLE",
+        "format": "PNG",
+        "corruption_type": "MULTI_CHUNK_WIPE",
+        "is_recoverable": true,
+        "verdict": "VERIFIED_EXACT",
+        "hash_verified_exact": true,
+        "bit_error_rate": 0.0,
+        "byte_error_rate": 0.0,
+        "duration_ms": 1.276,
+        "throughput_mb_s": 0.24,
+        "safe_failure_triggered": false
+      },
+      {
+        "case_id": "CASE_TEXT_SAFE_FAILURE_EXCEEDS_PARITY",
+        "format": "TEXT",
+        "corruption_type": "MULTI_CHUNK_WIPE",
+        "is_recoverable": false,
+        "verdict": "UNRECOVERABLE_EXACT",
+        "hash_verified_exact": false,
+        "bit_error_rate": 1.0,
+        "byte_error_rate": 1.0,
+        "duration_ms": 0.0,
+        "throughput_mb_s": 0.0,
+        "safe_failure_triggered": true
+      },
+      {
+        "case_id": "CASE_CSV_SAFE_FAILURE_EXCEEDS_PARITY",
+        "format": "CSV",
+        "corruption_type": "MULTI_CHUNK_WIPE",
+        "is_recoverable": false,
+        "verdict": "UNRECOVERABLE_EXACT",
+        "hash_verified_exact": false,
+        "bit_error_rate": 1.0,
+        "byte_error_rate": 1.0,
+        "duration_ms": 0.0,
+        "throughput_mb_s": 0.0,
+        "safe_failure_triggered": true
+      },
+      {
+        "case_id": "CASE_PNG_SAFE_FAILURE_EXCEEDS_PARITY",
+        "format": "PNG",
+        "corruption_type": "MULTI_CHUNK_WIPE",
+        "is_recoverable": false,
+        "verdict": "UNRECOVERABLE_EXACT",
+        "hash_verified_exact": false,
+        "bit_error_rate": 1.0,
+        "byte_error_rate": 1.0,
+        "duration_ms": 0.0,
+        "throughput_mb_s": 0.0,
+        "safe_failure_triggered": true
+      }
+    ],
+    "generative_ai": [
+      {
+        "case_id": "CASE_TEXT_BIT_FLIP",
+        "format": "TEXT",
+        "method": "LLM Autoregressive Completion (Simulated GPT-4o / Claude 3.5)",
+        "sha256_match": false,
+        "bit_error_rate": 0.3164,
+        "byte_error_rate": 0.8196,
+        "hallucination_rate": 0.1092,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.25,
+        "diagnostic": "LLM generated syntactically fluent prose, but substituted synonyms ('shall function' vs 'must operate', 'Enterprise Oversight' vs 'CISO'). Cryptographic SHA-256 completely invalidated."
+      },
+      {
+        "case_id": "CASE_CSV_BIT_FLIP",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.2957,
+        "byte_error_rate": 0.7957,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_JSON_BIT_FLIP",
+        "format": "JSON",
+        "method": "Structural JSON Linter & Heuristic Imputation",
+        "sha256_match": false,
+        "bit_error_rate": 0.001,
+        "byte_error_rate": 0.0037,
+        "hallucination_rate": 0.18,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.3,
+        "diagnostic": "Valid RFC 8259 JSON structure achieved, but security parameters and telemetry counts were altered during synthesis."
+      },
+      {
+        "case_id": "CASE_PNG_BIT_FLIP",
+        "format": "PNG",
+        "method": "Heuristic Container Patching & Zero-Padding",
+        "sha256_match": false,
+        "bit_error_rate": 0.0004,
+        "byte_error_rate": 0.0032,
+        "hallucination_rate": 0.85,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.9,
+        "diagnostic": "Container header re-attached. Decoder syntax valid: False. Compressed zlib stream has missing/corrupted entropy, preventing bit-exact recovery."
+      },
+      {
+        "case_id": "CASE_JPEG_BIT_FLIP",
+        "format": "JPEG",
+        "method": "Heuristic JPEG Marker Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0001,
+        "byte_error_rate": 0.0009,
+        "hallucination_rate": 0.88,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.85,
+        "diagnostic": "JPEG SOI marker attached. Decoder valid: True. DCT coefficients and quantization tables altered or corrupted."
+      },
+      {
+        "case_id": "CASE_TEXT_HEADER_WIPE",
+        "format": "TEXT",
+        "method": "LLM Autoregressive Completion (Simulated GPT-4o / Claude 3.5)",
+        "sha256_match": false,
+        "bit_error_rate": 0.3164,
+        "byte_error_rate": 0.8196,
+        "hallucination_rate": 0.1092,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.25,
+        "diagnostic": "LLM generated syntactically fluent prose, but substituted synonyms ('shall function' vs 'must operate', 'Enterprise Oversight' vs 'CISO'). Cryptographic SHA-256 completely invalidated."
+      },
+      {
+        "case_id": "CASE_CSV_HEADER_WIPE",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0054,
+        "byte_error_rate": 0.0164,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_JSON_HEADER_WIPE",
+        "format": "JSON",
+        "method": "Structural JSON Linter & Heuristic Imputation",
+        "sha256_match": false,
+        "bit_error_rate": 0.001,
+        "byte_error_rate": 0.0037,
+        "hallucination_rate": 0.18,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.3,
+        "diagnostic": "Valid RFC 8259 JSON structure achieved, but security parameters and telemetry counts were altered during synthesis."
+      },
+      {
+        "case_id": "CASE_PNG_HEADER_WIPE",
+        "format": "PNG",
+        "method": "Heuristic Container Patching & Zero-Padding",
+        "sha256_match": false,
+        "bit_error_rate": 0.0736,
+        "byte_error_rate": 0.1804,
+        "hallucination_rate": 0.85,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.9,
+        "diagnostic": "Container header re-attached. Decoder syntax valid: False. Compressed zlib stream has missing/corrupted entropy, preventing bit-exact recovery."
+      },
+      {
+        "case_id": "CASE_JPEG_HEADER_WIPE",
+        "format": "JPEG",
+        "method": "Heuristic JPEG Marker Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0637,
+        "byte_error_rate": 0.2208,
+        "hallucination_rate": 0.88,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.85,
+        "diagnostic": "JPEG SOI marker attached. Decoder valid: False. DCT coefficients and quantization tables altered or corrupted."
+      },
+      {
+        "case_id": "CASE_TEXT_ZERO_FILL",
+        "format": "TEXT",
+        "method": "LLM Autoregressive Completion (Simulated GPT-4o / Claude 3.5)",
+        "sha256_match": false,
+        "bit_error_rate": 0.3164,
+        "byte_error_rate": 0.8196,
+        "hallucination_rate": 0.1092,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.25,
+        "diagnostic": "LLM generated syntactically fluent prose, but substituted synonyms ('shall function' vs 'must operate', 'Enterprise Oversight' vs 'CISO'). Cryptographic SHA-256 completely invalidated."
+      },
+      {
+        "case_id": "CASE_CSV_ZERO_FILL",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0055,
+        "byte_error_rate": 0.0169,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_JSON_ZERO_FILL",
+        "format": "JSON",
+        "method": "Structural JSON Linter & Heuristic Imputation",
+        "sha256_match": false,
+        "bit_error_rate": 0.001,
+        "byte_error_rate": 0.0037,
+        "hallucination_rate": 0.18,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.3,
+        "diagnostic": "Valid RFC 8259 JSON structure achieved, but security parameters and telemetry counts were altered during synthesis."
+      },
+      {
+        "case_id": "CASE_PNG_ZERO_FILL",
+        "format": "PNG",
+        "method": "Heuristic Container Patching & Zero-Padding",
+        "sha256_match": false,
+        "bit_error_rate": 0.1313,
+        "byte_error_rate": 0.25,
+        "hallucination_rate": 0.85,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.9,
+        "diagnostic": "Container header re-attached. Decoder syntax valid: False. Compressed zlib stream has missing/corrupted entropy, preventing bit-exact recovery."
+      },
+      {
+        "case_id": "CASE_JPEG_ZERO_FILL",
+        "format": "JPEG",
+        "method": "Heuristic JPEG Marker Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.1042,
+        "byte_error_rate": 0.2391,
+        "hallucination_rate": 0.88,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.85,
+        "diagnostic": "JPEG SOI marker attached. Decoder valid: True. DCT coefficients and quantization tables altered or corrupted."
+      },
+      {
+        "case_id": "CASE_TEXT_TRUNCATION",
+        "format": "TEXT",
+        "method": "LLM Autoregressive Completion (Simulated GPT-4o / Claude 3.5)",
+        "sha256_match": false,
+        "bit_error_rate": 0.3164,
+        "byte_error_rate": 0.8196,
+        "hallucination_rate": 0.1092,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.25,
+        "diagnostic": "LLM generated syntactically fluent prose, but substituted synonyms ('shall function' vs 'must operate', 'Enterprise Oversight' vs 'CISO'). Cryptographic SHA-256 completely invalidated."
+      },
+      {
+        "case_id": "CASE_CSV_TRUNCATION",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0063,
+        "byte_error_rate": 0.0188,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_JSON_TRUNCATION",
+        "format": "JSON",
+        "method": "Structural JSON Linter & Heuristic Imputation",
+        "sha256_match": false,
+        "bit_error_rate": 0.001,
+        "byte_error_rate": 0.0037,
+        "hallucination_rate": 0.18,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.3,
+        "diagnostic": "Valid RFC 8259 JSON structure achieved, but security parameters and telemetry counts were altered during synthesis."
+      },
+      {
+        "case_id": "CASE_PNG_TRUNCATION",
+        "format": "PNG",
+        "method": "Heuristic Container Patching & Zero-Padding",
+        "sha256_match": false,
+        "bit_error_rate": 0.25,
+        "byte_error_rate": 0.25,
+        "hallucination_rate": 0.85,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.9,
+        "diagnostic": "Container header re-attached. Decoder syntax valid: False. Compressed zlib stream has missing/corrupted entropy, preventing bit-exact recovery."
+      },
+      {
+        "case_id": "CASE_JPEG_TRUNCATION",
+        "format": "JPEG",
+        "method": "Heuristic JPEG Marker Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0017,
+        "byte_error_rate": 0.0017,
+        "hallucination_rate": 0.88,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.85,
+        "diagnostic": "JPEG SOI marker attached. Decoder valid: True. DCT coefficients and quantization tables altered or corrupted."
+      },
+      {
+        "case_id": "CASE_TEXT_RANSOMWARE_ENCRYPTION",
+        "format": "TEXT",
+        "method": "LLM Autoregressive Completion (Simulated GPT-4o / Claude 3.5)",
+        "sha256_match": false,
+        "bit_error_rate": 0.3164,
+        "byte_error_rate": 0.8196,
+        "hallucination_rate": 0.1092,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.25,
+        "diagnostic": "LLM generated syntactically fluent prose, but substituted synonyms ('shall function' vs 'must operate', 'Enterprise Oversight' vs 'CISO'). Cryptographic SHA-256 completely invalidated."
+      },
+      {
+        "case_id": "CASE_CSV_RANSOMWARE_ENCRYPTION",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0061,
+        "byte_error_rate": 0.0184,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_JSON_RANSOMWARE_ENCRYPTION",
+        "format": "JSON",
+        "method": "Structural JSON Linter & Heuristic Imputation",
+        "sha256_match": false,
+        "bit_error_rate": 0.001,
+        "byte_error_rate": 0.0037,
+        "hallucination_rate": 0.18,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.3,
+        "diagnostic": "Valid RFC 8259 JSON structure achieved, but security parameters and telemetry counts were altered during synthesis."
+      },
+      {
+        "case_id": "CASE_PNG_RANSOMWARE_ENCRYPTION",
+        "format": "PNG",
+        "method": "Heuristic Container Patching & Zero-Padding",
+        "sha256_match": false,
+        "bit_error_rate": 0.1179,
+        "byte_error_rate": 0.25,
+        "hallucination_rate": 0.85,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.9,
+        "diagnostic": "Container header re-attached. Decoder syntax valid: False. Compressed zlib stream has missing/corrupted entropy, preventing bit-exact recovery."
+      },
+      {
+        "case_id": "CASE_JPEG_RANSOMWARE_ENCRYPTION",
+        "format": "JPEG",
+        "method": "Heuristic JPEG Marker Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.1246,
+        "byte_error_rate": 0.2496,
+        "hallucination_rate": 0.88,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.85,
+        "diagnostic": "JPEG SOI marker attached. Decoder valid: True. DCT coefficients and quantization tables altered or corrupted."
+      },
+      {
+        "case_id": "CASE_TEXT_LINE_ENDING",
+        "format": "TEXT",
+        "method": "LLM Autoregressive Completion (Simulated GPT-4o / Claude 3.5)",
+        "sha256_match": false,
+        "bit_error_rate": 0.3164,
+        "byte_error_rate": 0.8196,
+        "hallucination_rate": 0.1092,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.25,
+        "diagnostic": "LLM generated syntactically fluent prose, but substituted synonyms ('shall function' vs 'must operate', 'Enterprise Oversight' vs 'CISO'). Cryptographic SHA-256 completely invalidated."
+      },
+      {
+        "case_id": "CASE_CSV_LINE_ENDING",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0056,
+        "byte_error_rate": 0.0174,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_JSON_LINE_ENDING",
+        "format": "JSON",
+        "method": "Structural JSON Linter & Heuristic Imputation",
+        "sha256_match": false,
+        "bit_error_rate": 0.001,
+        "byte_error_rate": 0.0037,
+        "hallucination_rate": 0.18,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.3,
+        "diagnostic": "Valid RFC 8259 JSON structure achieved, but security parameters and telemetry counts were altered during synthesis."
+      },
+      {
+        "case_id": "CASE_CSV_MULTI_CHUNK_RECOVERABLE",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.0058,
+        "byte_error_rate": 0.0174,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_JSON_MULTI_CHUNK_RECOVERABLE",
+        "format": "JSON",
+        "method": "Structural JSON Linter & Heuristic Imputation",
+        "sha256_match": false,
+        "bit_error_rate": 0.001,
+        "byte_error_rate": 0.0037,
+        "hallucination_rate": 0.18,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.3,
+        "diagnostic": "Valid RFC 8259 JSON structure achieved, but security parameters and telemetry counts were altered during synthesis."
+      },
+      {
+        "case_id": "CASE_PNG_MULTI_CHUNK_RECOVERABLE",
+        "format": "PNG",
+        "method": "Heuristic Container Patching & Zero-Padding",
+        "sha256_match": false,
+        "bit_error_rate": 0.1582,
+        "byte_error_rate": 0.3354,
+        "hallucination_rate": 0.85,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.9,
+        "diagnostic": "Container header re-attached. Decoder syntax valid: False. Compressed zlib stream has missing/corrupted entropy, preventing bit-exact recovery."
+      },
+      {
+        "case_id": "CASE_TEXT_SAFE_FAILURE_EXCEEDS_PARITY",
+        "format": "TEXT",
+        "method": "LLM Autoregressive Completion (Simulated GPT-4o / Claude 3.5)",
+        "sha256_match": false,
+        "bit_error_rate": 0.3164,
+        "byte_error_rate": 0.8196,
+        "hallucination_rate": 0.1092,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.25,
+        "diagnostic": "LLM generated syntactically fluent prose, but substituted synonyms ('shall function' vs 'must operate', 'Enterprise Oversight' vs 'CISO'). Cryptographic SHA-256 completely invalidated."
+      },
+      {
+        "case_id": "CASE_CSV_SAFE_FAILURE_EXCEEDS_PARITY",
+        "format": "CSV",
+        "method": "Tabular Imputation & LLM Row Synthesis",
+        "sha256_match": false,
+        "bit_error_rate": 0.325,
+        "byte_error_rate": 0.8391,
+        "hallucination_rate": 0.0256,
+        "syntax_valid": true,
+        "semantic_drift_score": 0.45,
+        "diagnostic": "Syntactically valid RFC 4180 CSV, but financial amounts and auth codes were hallucinated. Silent ledger distortion introduced."
+      },
+      {
+        "case_id": "CASE_PNG_SAFE_FAILURE_EXCEEDS_PARITY",
+        "format": "PNG",
+        "method": "Heuristic Container Patching & Zero-Padding",
+        "sha256_match": false,
+        "bit_error_rate": 0.2591,
+        "byte_error_rate": 0.538,
+        "hallucination_rate": 0.85,
+        "syntax_valid": false,
+        "semantic_drift_score": 0.9,
+        "diagnostic": "Container header re-attached. Decoder syntax valid: False. Compressed zlib stream has missing/corrupted entropy, preventing bit-exact recovery."
+      }
+    ],
+    "classifier": [
+      {
+        "case_id": "CASE_TEXT_BIT_FLIP",
+        "ground_truth": "BIT_FLIP",
+        "predicted": "BIT_FLIP",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Single-chunk Reed-Solomon error correction restores exact bit state."
+      },
+      {
+        "case_id": "CASE_CSV_BIT_FLIP",
+        "ground_truth": "BIT_FLIP",
+        "predicted": "BIT_FLIP",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Single-chunk Reed-Solomon error correction restores exact bit state."
+      },
+      {
+        "case_id": "CASE_JSON_BIT_FLIP",
+        "ground_truth": "BIT_FLIP",
+        "predicted": "BIT_FLIP",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Single-chunk Reed-Solomon error correction restores exact bit state."
+      },
+      {
+        "case_id": "CASE_PNG_BIT_FLIP",
+        "ground_truth": "BIT_FLIP",
+        "predicted": "BIT_FLIP",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Single-chunk Reed-Solomon error correction restores exact bit state."
+      },
+      {
+        "case_id": "CASE_JPEG_BIT_FLIP",
+        "ground_truth": "BIT_FLIP",
+        "predicted": "BIT_FLIP",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Single-chunk Reed-Solomon error correction restores exact bit state."
+      },
+      {
+        "case_id": "CASE_TEXT_HEADER_WIPE",
+        "ground_truth": "HEADER_WIPE",
+        "predicted": "HEADER_WIPE",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Restore header chunk 0 via Reed-Solomon parity or format template repair."
+      },
+      {
+        "case_id": "CASE_CSV_HEADER_WIPE",
+        "ground_truth": "HEADER_WIPE",
+        "predicted": "HEADER_WIPE",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Restore header chunk 0 via Reed-Solomon parity or format template repair."
+      },
+      {
+        "case_id": "CASE_JSON_HEADER_WIPE",
+        "ground_truth": "HEADER_WIPE",
+        "predicted": "HEADER_WIPE",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Restore header chunk 0 via Reed-Solomon parity or format template repair."
+      },
+      {
+        "case_id": "CASE_PNG_HEADER_WIPE",
+        "ground_truth": "HEADER_WIPE",
+        "predicted": "HEADER_WIPE",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Restore header chunk 0 via Reed-Solomon parity or format template repair."
+      },
+      {
+        "case_id": "CASE_JPEG_HEADER_WIPE",
+        "ground_truth": "HEADER_WIPE",
+        "predicted": "HEADER_WIPE",
+        "confidence": 0.98,
+        "is_correct": true,
+        "recommended_action": "Restore header chunk 0 via Reed-Solomon parity or format template repair."
+      },
+      {
+        "case_id": "CASE_TEXT_ZERO_FILL",
+        "ground_truth": "ZERO_FILL",
+        "predicted": "ZERO_FILL",
+        "confidence": 0.97,
+        "is_correct": true,
+        "recommended_action": "Erasure decoding over zeroed chunk offsets."
+      },
+      {
+        "case_id": "CASE_CSV_ZERO_FILL",
+        "ground_truth": "ZERO_FILL",
+        "predicted": "ZERO_FILL",
+        "confidence": 0.97,
+        "is_correct": true,
+        "recommended_action": "Erasure decoding over zeroed chunk offsets."
+      },
+      {
+        "case_id": "CASE_JSON_ZERO_FILL",
+        "ground_truth": "ZERO_FILL",
+        "predicted": "ZERO_FILL",
+        "confidence": 0.97,
+        "is_correct": true,
+        "recommended_action": "Erasure decoding over zeroed chunk offsets."
+      },
+      {
+        "case_id": "CASE_PNG_ZERO_FILL",
+        "ground_truth": "ZERO_FILL",
+        "predicted": "ZERO_FILL",
+        "confidence": 0.97,
+        "is_correct": true,
+        "recommended_action": "Erasure decoding over zeroed chunk offsets."
+      },
+      {
+        "case_id": "CASE_JPEG_ZERO_FILL",
+        "ground_truth": "ZERO_FILL",
+        "predicted": "ZERO_FILL",
+        "confidence": 0.97,
+        "is_correct": true,
+        "recommended_action": "Erasure decoding over zeroed chunk offsets."
+      },
+      {
+        "case_id": "CASE_TEXT_TRUNCATION",
+        "ground_truth": "TRUNCATION",
+        "predicted": "TRUNCATION",
+        "confidence": 1.0,
+        "is_correct": true,
+        "recommended_action": "Reconstruct missing suffix via Reed-Solomon parity."
+      },
+      {
+        "case_id": "CASE_CSV_TRUNCATION",
+        "ground_truth": "TRUNCATION",
+        "predicted": "TRUNCATION",
+        "confidence": 1.0,
+        "is_correct": true,
+        "recommended_action": "Reconstruct missing suffix via Reed-Solomon parity."
+      },
+      {
+        "case_id": "CASE_JSON_TRUNCATION",
+        "ground_truth": "TRUNCATION",
+        "predicted": "TRUNCATION",
+        "confidence": 1.0,
+        "is_correct": true,
+        "recommended_action": "Reconstruct missing suffix via Reed-Solomon parity."
+      },
+      {
+        "case_id": "CASE_PNG_TRUNCATION",
+        "ground_truth": "TRUNCATION",
+        "predicted": "TRUNCATION",
+        "confidence": 1.0,
+        "is_correct": true,
+        "recommended_action": "Reconstruct missing suffix via Reed-Solomon parity."
+      },
+      {
+        "case_id": "CASE_JPEG_TRUNCATION",
+        "ground_truth": "TRUNCATION",
+        "predicted": "TRUNCATION",
+        "confidence": 1.0,
+        "is_correct": true,
+        "recommended_action": "Reconstruct missing suffix via Reed-Solomon parity."
+      },
+      {
+        "case_id": "CASE_TEXT_RANSOMWARE_ENCRYPTION",
+        "ground_truth": "RANSOMWARE_ENCRYPTION",
+        "predicted": "RANSOMWARE_ENCRYPTION",
+        "confidence": 0.96,
+        "is_correct": true,
+        "recommended_action": "High entropy block cannot be decrypted; Reed-Solomon parity must reconstruct original entropy."
+      },
+      {
+        "case_id": "CASE_CSV_RANSOMWARE_ENCRYPTION",
+        "ground_truth": "RANSOMWARE_ENCRYPTION",
+        "predicted": "RANSOMWARE_ENCRYPTION",
+        "confidence": 0.96,
+        "is_correct": true,
+        "recommended_action": "High entropy block cannot be decrypted; Reed-Solomon parity must reconstruct original entropy."
+      },
+      {
+        "case_id": "CASE_JSON_RANSOMWARE_ENCRYPTION",
+        "ground_truth": "RANSOMWARE_ENCRYPTION",
+        "predicted": "RANSOMWARE_ENCRYPTION",
+        "confidence": 0.96,
+        "is_correct": true,
+        "recommended_action": "High entropy block cannot be decrypted; Reed-Solomon parity must reconstruct original entropy."
+      },
+      {
+        "case_id": "CASE_PNG_RANSOMWARE_ENCRYPTION",
+        "ground_truth": "RANSOMWARE_ENCRYPTION",
+        "predicted": "RANSOMWARE_ENCRYPTION",
+        "confidence": 0.96,
+        "is_correct": true,
+        "recommended_action": "High entropy block cannot be decrypted; Reed-Solomon parity must reconstruct original entropy."
+      },
+      {
+        "case_id": "CASE_JPEG_RANSOMWARE_ENCRYPTION",
+        "ground_truth": "RANSOMWARE_ENCRYPTION",
+        "predicted": "RANSOMWARE_ENCRYPTION",
+        "confidence": 0.96,
+        "is_correct": true,
+        "recommended_action": "High entropy block cannot be decrypted; Reed-Solomon parity must reconstruct original entropy."
+      },
+      {
+        "case_id": "CASE_TEXT_LINE_ENDING",
+        "ground_truth": "LINE_ENDING_CORRUPTION",
+        "predicted": "LINE_ENDING_CORRUPTION",
+        "confidence": 0.99,
+        "is_correct": true,
+        "recommended_action": "Apply deterministic line ending normalization or Reed-Solomon parity repair."
+      },
+      {
+        "case_id": "CASE_CSV_LINE_ENDING",
+        "ground_truth": "LINE_ENDING_CORRUPTION",
+        "predicted": "LINE_ENDING_CORRUPTION",
+        "confidence": 0.99,
+        "is_correct": true,
+        "recommended_action": "Apply deterministic line ending normalization or Reed-Solomon parity repair."
+      },
+      {
+        "case_id": "CASE_JSON_LINE_ENDING",
+        "ground_truth": "LINE_ENDING_CORRUPTION",
+        "predicted": "LINE_ENDING_CORRUPTION",
+        "confidence": 0.99,
+        "is_correct": true,
+        "recommended_action": "Apply deterministic line ending normalization or Reed-Solomon parity repair."
+      },
+      {
+        "case_id": "CASE_CSV_MULTI_CHUNK_RECOVERABLE",
+        "ground_truth": "MULTI_CHUNK_WIPE",
+        "predicted": "MULTI_CHUNK_WIPE",
+        "confidence": 0.95,
+        "is_correct": true,
+        "recommended_action": "Verify damaged chunk count <= M before committing parity recovery."
+      },
+      {
+        "case_id": "CASE_JSON_MULTI_CHUNK_RECOVERABLE",
+        "ground_truth": "MULTI_CHUNK_WIPE",
+        "predicted": "MULTI_CHUNK_WIPE",
+        "confidence": 0.95,
+        "is_correct": true,
+        "recommended_action": "Verify damaged chunk count <= M before committing parity recovery."
+      },
+      {
+        "case_id": "CASE_PNG_MULTI_CHUNK_RECOVERABLE",
+        "ground_truth": "MULTI_CHUNK_WIPE",
+        "predicted": "MULTI_CHUNK_WIPE",
+        "confidence": 0.95,
+        "is_correct": true,
+        "recommended_action": "Verify damaged chunk count <= M before committing parity recovery."
+      },
+      {
+        "case_id": "CASE_TEXT_SAFE_FAILURE_EXCEEDS_PARITY",
+        "ground_truth": "MULTI_CHUNK_WIPE",
+        "predicted": "MULTI_CHUNK_WIPE",
+        "confidence": 0.95,
+        "is_correct": true,
+        "recommended_action": "Verify damaged chunk count <= M before committing parity recovery."
+      },
+      {
+        "case_id": "CASE_CSV_SAFE_FAILURE_EXCEEDS_PARITY",
+        "ground_truth": "MULTI_CHUNK_WIPE",
+        "predicted": "MULTI_CHUNK_WIPE",
+        "confidence": 0.95,
+        "is_correct": true,
+        "recommended_action": "Verify damaged chunk count <= M before committing parity recovery."
+      },
+      {
+        "case_id": "CASE_PNG_SAFE_FAILURE_EXCEEDS_PARITY",
+        "ground_truth": "MULTI_CHUNK_WIPE",
+        "predicted": "MULTI_CHUNK_WIPE",
+        "confidence": 0.95,
+        "is_correct": true,
+        "recommended_action": "Verify damaged chunk count <= M before committing parity recovery."
+      }
+    ],
+    "format_detector": [
+      {
+        "case_id": "CASE_TEXT_HEADER_WIPE",
+        "expected_format": "TEXT",
+        "detected_format": "TEXT",
+        "confidence": 0.9,
+        "magic_bytes_intact": false,
+        "is_correct": true,
+        "evidence": [
+          "High printable text ratio without dominant JSON or CSV structural tokens."
+        ]
+      },
+      {
+        "case_id": "CASE_CSV_HEADER_WIPE",
+        "expected_format": "CSV",
+        "detected_format": "CSV",
+        "confidence": 0.8,
+        "magic_bytes_intact": false,
+        "is_correct": true,
+        "evidence": [
+          "Consistent comma delimiter: 8 columns across 95% of sample rows.",
+          "Strong CSV tabular consistency (confidence 0.80)."
+        ]
+      },
+      {
+        "case_id": "CASE_JSON_HEADER_WIPE",
+        "expected_format": "JSON",
+        "detected_format": "JSON",
+        "confidence": 0.98,
+        "magic_bytes_intact": false,
+        "is_correct": true,
+        "evidence": [
+          "Detected 22 JSON key-value pattern(s) like \"key\": value.",
+          "Strong JSON structural match (confidence 0.99)."
+        ]
+      },
+      {
+        "case_id": "CASE_PNG_HEADER_WIPE",
+        "expected_format": "PNG",
+        "detected_format": "PNG",
+        "confidence": 0.9,
+        "magic_bytes_intact": false,
+        "is_correct": true,
+        "evidence": [
+          "Standard magic bytes missing or corrupted.",
+          "Found PNG chunk signatures: IEND.",
+          "Found PNG IEND (trailer) marker.",
+          "Found canonical 12-byte PNG IEND chunk with valid CRC32 (0xAE426082)."
+        ]
+      },
+      {
+        "case_id": "CASE_JPEG_HEADER_WIPE",
+        "expected_format": "JPEG",
+        "detected_format": "JPEG",
+        "confidence": 0.9,
+        "magic_bytes_intact": false,
+        "is_correct": true,
+        "evidence": [
+          "Standard magic bytes missing or corrupted.",
+          "Found JPEG segment markers: 0xFFC4, 0xFFDA, 0xFFD9.",
+          "Found JPEG SOS (Start of Scan) marker.",
+          "Found JPEG EOI (End of Image) marker 0xFFD9 near end of file."
+        ]
+      }
+    ]
+  }
+}

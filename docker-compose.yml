@@ -1,0 +1,63 @@
+# ==============================================================================
+# ReSecure MVP v1.0 - Docker Compose Orchestration (Root)
+# Tenets: Mathematical Invariance | Non-Destructive Isolation | Air-Gapped Local
+# Usage: docker compose -f docker-compose.resecure.yml up -d
+# ==============================================================================
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: resecure/Dockerfile.backend
+    image: resecure-backend:1.0.0
+    container_name: resecure-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - RESECURE_HOST=0.0.0.0
+      - RESECURE_PORT=8000
+      - RESECURE_STORAGE_DIR=/data
+      - RESECURE_DB_PATH=/data/resecure.db
+      - RESECURE_HMAC_SECRET=${RESECURE_HMAC_SECRET:-calmstacks-resecure-default-manifest-secret-key-replace-in-prod}
+      - RESECURE_MAX_FILE_SIZE_BYTES=${RESECURE_MAX_FILE_SIZE_BYTES:-2147483648}
+    volumes:
+      - resecure_data:/data
+    networks:
+      - resecure-net
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request, sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/health').getcode() == 200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: resecure/Dockerfile.frontend
+    image: resecure-frontend:1.0.0
+    container_name: resecure-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - resecure-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+networks:
+  resecure-net:
+    driver: bridge
+    name: resecure-network
+
+volumes:
+  resecure_data:
+    name: resecure-sqlite-data
