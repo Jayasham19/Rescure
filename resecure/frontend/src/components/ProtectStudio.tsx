@@ -23,7 +23,7 @@ export const ProtectStudio: React.FC<ProtectStudioProps> = ({ onProtectionComple
   const [fileSizeBytes, setFileSizeBytes] = useState<number>(1048576); // 1.0 MB
   const [fileFormat, setFileFormat] = useState<string>('CSV');
   const [chunkSizeBytes, setChunkSizeBytes] = useState<number>(65536); // 64KB
-  const [redundancyPct, setRedundancyPct] = useState<number>(20);
+  const [redundancyPct] = useState<number>(20);
   const [secretKey, setSecretKey] = useState<string>('c0ffee8899aabbccddeeff00112233445566778899aabbccddeeff0011223344');
   const [keyId, setKeyId] = useState<string>('vault-key-prod-01');
   const [showSecret, setShowSecret] = useState<boolean>(false);
@@ -252,45 +252,6 @@ export const ProtectStudio: React.FC<ProtectStudioProps> = ({ onProtectionComple
                     }`}
                   >
                     {item.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Redundancy Slider */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs">
-                <span className="text-[#CBD5E1] font-semibold">Parity Redundancy Ratio:</span>
-                <span className="font-mono text-sm font-bold text-[#06B6D4]">{redundancyPct}%</span>
-              </div>
-
-              <input
-                type="range"
-                min="5"
-                max="100"
-                value={redundancyPct}
-                onChange={(e) => setRedundancyPct(Number(e.target.value))}
-                className="w-full h-2 bg-[#1E293B] rounded-lg appearance-none cursor-pointer accent-[#06B6D4]"
-              />
-
-              {/* Snap Presets */}
-              <div className="flex justify-between items-center text-[11px] font-mono text-[#94A3B8] pt-1">
-                {[
-                  { label: '10% (Std)', val: 10 },
-                  { label: '20% (Default)', val: 20 },
-                  { label: '30% (High)', val: 30 },
-                  { label: '50% (Critical)', val: 50 },
-                  { label: '100% (Mirror)', val: 100 },
-                ].map((snap) => (
-                  <button
-                    key={snap.val}
-                    type="button"
-                    onClick={() => setRedundancyPct(snap.val)}
-                    className={`px-1.5 py-0.5 rounded hover:text-[#06B6D4] ${
-                      redundancyPct === snap.val ? 'text-[#06B6D4] font-bold bg-[#1E293B]' : ''
-                    }`}
-                  >
-                    {snap.label}
                   </button>
                 ))}
               </div>
