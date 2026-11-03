@@ -19,11 +19,80 @@ Why did some files not "look" corrupted?
 import os
 import sys
 import json
+import re
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Tuple
 
 
-def get_manifest_info(file_path: Path) -> tuple[int, int, int]:
+def get_available_sample_files() -> List[Path]:
+    """Finds all available sample files across demo_samples and Downloads."""
+    candidates = []
+    
+    # 1. demo_samples
+    demo_dir = Path("demo_samples")
+    if not demo_dir.is_dir():
+        demo_dir = Path(__file__).resolve().parent / "demo_samples"
+    
+    if demo_dir.is_dir():
+        for f in sorted(demo_dir.glob("*.pdf")) + sorted(demo_dir.glob("*.dat")):
+            if not f.name.startswith("corrupted_") and not f.name.startswith("Corrupted_") and not f.name.startswith("recovered_"):
+                candidates.append(f)
+
+    # 2. Downloads directory
+    dl = Path.home() / "Downloads"
+    for name in [
+        "JNDCV.pdf",
+        "AI for Scientific Research.pdf",
+        "Monitoring_interstate_river_2014-15.pdf",
+        "nscl_module_2.pdf",
+    ]:
+        p = dl / name
+        if p.is_file() and p not in candidates:
+            candidates.append(p)
+
+    return candidates
+
+
+def resolve_file(query_str: Optional[str]) -> Optional[Path]:
+    """Smartly resolves a file path from a path, filename, partial name, or number."""
+    samples = get_available_sample_files()
+    if not query_str:
+        return samples[0] if samples else None
+
+    # Check if number passed (e.g. "1")
+    if query_str.isdigit():
+        idx = int(query_str) - 1
+        if 0 <= idx < len(samples):
+            return samples[idx].resolve()
+
+    p = Path(query_str)
+    if p.is_file():
+        return p.resolve()
+
+    # Search in common locations
+    search_dirs = [
+        Path.cwd(),
+        Path("demo_samples"),
+        Path(__file__).resolve().parent / "demo_samples",
+        Path("data/staging"),
+        Path.home() / "Downloads",
+    ]
+
+    for d in search_dirs:
+        cand = d / p.name
+        if cand.is_file():
+            return cand.resolve()
+
+    # Case-insensitive substring match
+    q_lower = query_str.lower().strip()
+    for s in samples:
+        if q_lower in s.name.lower():
+            return s.resolve()
+
+    return None
+
+
+def get_manifest_info(file_path: Path) -> Tuple[int, int, int]:
     """
     Attempts to locate .rsmanifest.json for the file to determine K, M, and chunk_size.
     Returns: (data_chunks_k, parity_chunks_m, chunk_size_bytes)
@@ -31,8 +100,9 @@ def get_manifest_info(file_path: Path) -> tuple[int, int, int]:
     manifest_candidates = [
         file_path.with_name(f"{file_path.name}.rsmanifest.json"),
         file_path.parent / f"{file_path.name}.rsmanifest.json",
-        Path("data/staging") / f"{file_path.name}.rsmanifest.json",
         Path("demo_samples") / f"{file_path.name}.rsmanifest.json",
+        Path(__file__).resolve().parent / "demo_samples" / f"{file_path.name}.rsmanifest.json",
+        Path("data/staging") / f"{file_path.name}.rsmanifest.json",
         Path.home() / "Downloads" / f"{file_path.name}.rsmanifest.json",
     ]
     for m in manifest_candidates:
@@ -64,24 +134,6 @@ def corrupt_file_smart(
 ) -> dict:
     """
     Corrupts a file with mathematical awareness of Reed-Solomon parity boundaries.
-
-    Modes:
-    1. 'visible_broken_recoverable':
-       - Wrecks the magic header (%PDF- or image signature) in Chunk 0.
-       - Result: File CANNOT be opened by PDF reader or Image viewer (Visibly 100% broken).
-       - Solvability: Exactly 1 chunk damaged (E = 1 <= M). Bit-for-bit 100% recoverable!
-
-    2. 'safe_chunk_corruption':
-       - Corrupts exactly `chunks_to_corrupt` distinct chunks (e.g. 1 or 2 chunks).
-       - Solvability: E <= M. 100% bit-for-bit recoverable!
-
-    3. 'safe_truncation':
-       - Truncates only from the tail within the parity budget (e.g. truncates 1 chunk).
-       - Solvability: E <= M. 100% bit-for-bit recoverable!
-
-    4. 'exceeds_parity_test':
-       - Corrupts M + 2 chunks deliberately.
-       - Result: Triggers ReSecure's SAFE FAILURE PROTOCOL (E > M).
     """
     src = Path(input_path).resolve()
     dst = Path(output_path).resolve()
@@ -103,37 +155,37 @@ def corrupt_file_smart(
 
     corrupted_indices = []
 
-    if mode == "visible_broken_recoverable":
+    if mode in ("visible_broken_recoverable", "1", "visible"):
+        mode = "visible_broken_recoverable"
         # Wreck first 512 bytes (file header & structure) in Chunk 0
         corrupt_len = min(512, total_len)
         for i in range(corrupt_len):
             data[i] = fill_byte
         corrupted_indices = [0]
-        print(f"Action: Overwrote first {corrupt_len} bytes (header) with 0x{fill_byte:02X}")
-        print("Effect: PDF/Image viewers CANNOT open this file. It is visibly broken.")
+        print(f"Action: Overwrote first {corrupt_len} bytes (magic header) with 0x{fill_byte:02X} ('{chr(fill_byte)}')")
+        print("Effect: PDF/Image viewers CANNOT open this file. It is visibly 100% broken.")
 
-    elif mode == "safe_chunk_corruption":
-        # Corrupt specified number of chunks (capped at M for safety)
+    elif mode in ("safe_chunk_corruption", "2", "chunks"):
+        mode = "safe_chunk_corruption"
         count = min(chunks_to_corrupt, m_parity)
         for c in range(count):
             start = c * chunk_size
             end = min(start + chunk_size, total_len)
-            # Corrupt 1000 bytes inside each chunk
             for i in range(start, min(start + 1024, end)):
                 data[i] ^= 0xFF
             corrupted_indices.append(c)
         print(f"Action: Corrupted {count} chunks (indices: {corrupted_indices})")
 
-    elif mode == "safe_truncation":
-        # Truncate at most M chunks from the tail
+    elif mode in ("safe_truncation", "3", "truncation"):
+        mode = "safe_truncation"
         chunks_to_cut = min(chunks_to_corrupt, m_parity)
         new_len = max(1, total_len - (chunks_to_cut * chunk_size))
         data = data[:new_len]
         corrupted_indices = list(range(k - chunks_to_cut, k))
         print(f"Action: Truncated tail by {total_len - new_len:,} bytes ({chunks_to_cut} chunks)")
 
-    elif mode == "exceeds_parity_test":
-        # Deliberately corrupt M + 2 chunks
+    elif mode in ("exceeds_parity_test", "4", "exceeds"):
+        mode = "exceeds_parity_test"
         chunks_to_wreck = min(k, m_parity + 2)
         for c in range(chunks_to_wreck):
             offset = c * chunk_size + 100
@@ -147,6 +199,17 @@ def corrupt_file_smart(
 
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_bytes(bytes(data))
+
+    # Also mirror into demo_samples if output is Corrupted_<name>
+    demo_dir = Path("demo_samples")
+    if not demo_dir.is_dir():
+        demo_dir = Path(__file__).resolve().parent / "demo_samples"
+    if demo_dir.is_dir() and dst.parent != demo_dir.resolve():
+        try:
+            demo_mirror = demo_dir / dst.name
+            demo_mirror.write_bytes(bytes(data))
+        except Exception:
+            pass
 
     e = len(corrupted_indices)
     is_solvable = e <= m_parity
@@ -167,76 +230,64 @@ def corrupt_file_smart(
     }
 
 
-if __name__ == "__main__":
+def main():
     import argparse
 
     parser = argparse.ArgumentParser(
         description="ReSecure Smart File Corruption Tool for Parity Recovery Testing",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  # 1. Corrupt any file so it's visibly broken but 100% recoverable (E=1 <= M):
-  python corrupt_file_tool.py "my_document.pdf"
-
-  # 2. Corrupt 2 chunks safely (E=2 <= M):
-  python corrupt_file_tool.py "my_document.pdf" --mode safe_chunk_corruption --chunks 2
-
-  # 3. Truncate tail safely within parity limit:
-  python corrupt_file_tool.py "my_document.pdf" --mode safe_truncation
-
-  # 4. Deliberately exceed parity to test Safe Failure (E > M):
-  python corrupt_file_tool.py "my_document.pdf" --mode exceeds_parity_test
-        """,
     )
-    parser.add_argument("input_file", nargs="?", default=None, help="Path to the file to corrupt")
-    parser.add_argument("-o", "--output", default=None, help="Output destination (default: <name>-corrupted.<ext>)")
+    # nargs="*" allows unquoted file names with spaces: python corrupt_file_tool.py AI for Scientific Research.pdf
+    parser.add_argument("input_file", nargs="*", default=None, help="File to corrupt (name, path, or number 1-5)")
+    parser.add_argument("-o", "--output", default=None, help="Output path (default: Corrupted_<filename>)")
     parser.add_argument(
         "-m",
         "--mode",
-        choices=["visible_broken_recoverable", "safe_chunk_corruption", "safe_truncation", "exceeds_parity_test"],
         default="visible_broken_recoverable",
-        help="Corruption mode (default: visible_broken_recoverable)",
+        help="Mode: 1=visible_broken_recoverable, 2=safe_chunk_corruption, 3=safe_truncation, 4=exceeds_parity_test",
     )
     parser.add_argument(
         "-c",
         "--chunks",
         type=int,
         default=1,
-        help="Number of chunks to corrupt for safe_chunk_corruption (default: 1)",
+        help="Number of chunks to corrupt (default: 1)",
     )
 
     args = parser.parse_args()
 
-    input_path = args.input_file
-    if not input_path:
-        # Check standard sample files or ask
-        for candidate in [
-            "C:/Users/ndsha/Downloads/Monitoring_interstate_river_2014-15.pdf",
-            "C:/Users/ndsha/Downloads/AI for Scientific Research.pdf",
-            "demo_samples/nscl_module_2.pdf",
-            "demo_samples/test_document.pdf",
-        ]:
-            if Path(candidate).is_file():
-                input_path = candidate
-                break
+    raw_query = " ".join(args.input_file) if args.input_file else None
+    target_file = resolve_file(raw_query)
 
-    if not input_path or not Path(input_path).is_file():
-        print("Usage: python corrupt_file_tool.py <path_to_file> [--mode <mode>]")
-        print("\nAvailable files you can corrupt:")
-        for candidate in [
-            "C:/Users/ndsha/Downloads/Monitoring_interstate_river_2014-15.pdf",
-            "C:/Users/ndsha/Downloads/AI for Scientific Research.pdf",
-            "demo_samples/nscl_module_2.pdf",
-        ]:
-            if Path(candidate).is_file():
-                print(f" - {candidate}")
+    samples = get_available_sample_files()
+
+    if not target_file:
+        print("\n=======================================================")
+        print("  RESECURE FILE CORRUPTION TEST TOOL")
+        print("=======================================================")
+        print("Please choose a file to corrupt by typing its number:\n")
+        for i, s in enumerate(samples, 1):
+            print(f"  [{i}] {s.name}")
+        print("\nOr pass a filename directly, for example:")
+        print("  python corrupt_file_tool.py JNDCV.pdf")
+        print("  python corrupt_file_tool.py 1")
+        print("=======================================================\n")
+
+        try:
+            choice = input("Enter choice (1-4): ").strip()
+            target_file = resolve_file(choice)
+        except (EOFError, KeyboardInterrupt):
+            pass
+
+    if not target_file or not target_file.is_file():
+        print(f"Error: Could not find or resolve file '{raw_query}'.")
         sys.exit(1)
 
-    target_file = Path(input_path).resolve()
     if args.output:
         out_file = Path(args.output).resolve()
     else:
-        out_file = target_file.parent / f"{target_file.stem}-corrupted{target_file.suffix}"
+        # Match RecoveryStudio naming convention: Corrupted_<filename>
+        out_file = target_file.parent / f"Corrupted_{target_file.name}"
 
     corrupt_file_smart(
         input_path=str(target_file),
@@ -244,3 +295,7 @@ Examples:
         mode=args.mode,
         chunks_to_corrupt=args.chunks,
     )
+
+
+if __name__ == "__main__":
+    main()
