@@ -65,7 +65,8 @@ class ReSecureApiClient {
     try {
       const url = `${this.baseUrl}${endpoint}`;
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 20000);
+      // Allow up to 3 minutes for large-file cryptographic Reed-Solomon reconstruction and uploads
+      const timeoutId = setTimeout(() => controller.abort(), 180000);
 
       const requestHeaders: Record<string, string> = {
         Accept: 'application/json',

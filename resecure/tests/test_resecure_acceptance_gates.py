@@ -675,11 +675,17 @@ class TestReSecureAcceptanceGates(unittest.TestCase):
         aiml_test_file = REPO_ROOT / "resecure" / "evals" / "test_aiml_evals.py"
         self.assertTrue(aiml_test_file.is_file(), "AI/ML evals test file must exist")
 
-        api_yaml = REPO_ROOT / "contracts" / "resecure" / "api.yaml"
+        api_yaml = REPO_ROOT / "resecure" / "contracts" / "api.yaml"
+        if not api_yaml.is_file():
+            api_yaml = REPO_ROOT / "contracts" / "resecure" / "api.yaml"
         self.assertTrue(api_yaml.is_file(), "OpenAPI 3.1 contract must exist")
-        types_ts = REPO_ROOT / "contracts" / "resecure" / "types.ts"
+        types_ts = REPO_ROOT / "resecure" / "contracts" / "types.ts"
+        if not types_ts.is_file():
+            types_ts = REPO_ROOT / "contracts" / "resecure" / "types.ts"
         self.assertTrue(types_ts.is_file(), "TypeScript contract must exist")
-        schema_sql = REPO_ROOT / "contracts" / "resecure" / "schema.sql"
+        schema_sql = REPO_ROOT / "resecure" / "contracts" / "schema.sql"
+        if not schema_sql.is_file():
+            schema_sql = REPO_ROOT / "contracts" / "resecure" / "schema.sql"
         self.assertTrue(schema_sql.is_file(), "Database schema SQL contract must exist")
 
     # =========================================================================

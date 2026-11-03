@@ -107,6 +107,13 @@ class ReedSolomonCodec:
         # Pad all chunks to uniform chunk_size
         padded_chunks = [pad_chunk(c, self.chunk_size) for c in data_chunks]
 
+        # Fast-path for single-parity (m=1): pure XOR in GF(2^8), mathematically identical to RS(k+1, k)
+        if m == 1:
+            parity_int = 0
+            for c in padded_chunks:
+                parity_int ^= int.from_bytes(c, "big")
+            return [parity_int.to_bytes(self.chunk_size, "big")]
+
         rsc = reedsolo.RSCodec(nsym=m)
         parity_chunks = [bytearray(self.chunk_size) for _ in range(m)]
 
@@ -252,31 +259,39 @@ class ReedSolomonCodec:
                 prepared_chunks.append(pad_chunk(data_chunks[i], self.chunk_size))
 
         prepared_parity = [pad_chunk(p, self.chunk_size) for p in parity_chunks]
-
-        rsc = reedsolo.RSCodec(nsym=m)
         reconstructed_chunks = {idx: bytearray(self.chunk_size) for idx in damaged_indices}
 
-        # Solve striping for each byte position j
-        erase_pos = list(damaged_indices)
+        # Fast-path for single erasure with single parity: pure XOR in GF(2^8) (instantaneous)
+        if m == 1 and len(damaged_indices) == 1:
+            dmg_idx = damaged_indices[0]
+            rec_int = int.from_bytes(prepared_parity[0], "big")
+            for i in range(k):
+                if i != dmg_idx:
+                    rec_int ^= int.from_bytes(prepared_chunks[i], "big")
+            reconstructed_chunks[dmg_idx] = bytearray(rec_int.to_bytes(self.chunk_size, "big"))
+        else:
+            rsc = reedsolo.RSCodec(nsym=m)
+            # Solve striping for each byte position j
+            erase_pos = list(damaged_indices)
 
-        try:
-            for j in range(self.chunk_size):
-                buf = bytearray(k + m)
-                for i in range(k):
-                    buf[i] = prepared_chunks[i][j]
-                for p_idx in range(m):
-                    buf[k + p_idx] = prepared_parity[p_idx][j]
+            try:
+                for j in range(self.chunk_size):
+                    buf = bytearray(k + m)
+                    for i in range(k):
+                        buf[i] = prepared_chunks[i][j]
+                    for p_idx in range(m):
+                        buf[k + p_idx] = prepared_parity[p_idx][j]
 
-                decoded, _, _ = rsc.decode(buf, erase_pos=erase_pos, only_erasures=True)
-                for idx in damaged_indices:
-                    reconstructed_chunks[idx][j] = decoded[idx]
-        except reedsolo.ReedSolomonError as exc:
-            raise RedundancyExceededError(
-                damaged_count=len(damaged_indices),
-                parity_available=m,
-                deficit=1,
-                damaged_indices=sorted(damaged_indices),
-            ) from exc
+                    decoded, _, _ = rsc.decode(buf, erase_pos=erase_pos, only_erasures=True)
+                    for idx in damaged_indices:
+                        reconstructed_chunks[idx][j] = decoded[idx]
+            except reedsolo.ReedSolomonError as exc:
+                raise RedundancyExceededError(
+                    damaged_count=len(damaged_indices),
+                    parity_available=m,
+                    deficit=1,
+                    damaged_indices=sorted(damaged_indices),
+                ) from exc
 
         # Assemble recovered chunk list
         final_chunks: List[bytes] = []
